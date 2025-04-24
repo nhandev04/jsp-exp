@@ -1,18 +1,14 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.UUID;
+import java.util.*;
 import jakarta.persistence.*;
+import lombok.*;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "roles")
 public class Role {
     @Id

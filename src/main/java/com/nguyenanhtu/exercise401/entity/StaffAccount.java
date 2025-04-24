@@ -1,21 +1,15 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import java.util.UUID;
-import java.util.Date;
-import java.util.List;
-
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.*;
 import jakarta.persistence.*;
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "staff_accounts")
 public class StaffAccount {
 

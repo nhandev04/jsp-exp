@@ -1,23 +1,17 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import java.time.OffsetDateTime;
-import java.util.UUID;
-
+import java.util.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-
+import lombok.*;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "categories")
-public class Category {
+public class Category extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -47,12 +41,6 @@ public class Category {
     @Column(nullable = false)
     private Boolean active = true;
 
-    @Column(name = "created_at", nullable = false)
-    private OffsetDateTime createdAt;
-
-    @Column(name = "updated_at", nullable = false)
-    private OffsetDateTime updatedAt;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
     @JsonIgnore
@@ -63,14 +51,4 @@ public class Category {
     @JsonIgnore
     private StaffAccount updatedBy;
 
-    @PrePersist
-    protected void onCreate() {
-        createdAt = OffsetDateTime.now();
-        updatedAt = OffsetDateTime.now();
-    }
-
-    @PreUpdate
-    protected void onUpdate() {
-        updatedAt = OffsetDateTime.now();
-    }
 }

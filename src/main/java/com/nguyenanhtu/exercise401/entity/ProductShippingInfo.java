@@ -1,24 +1,17 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import java.util.UUID;
 import java.math.BigDecimal;
-
+import java.util.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "product_shipping_info")
-public class ProductShippingInfo {
+public class ProductShippingInfo extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -32,14 +25,24 @@ public class ProductShippingInfo {
     @Column(nullable = false)
     private BigDecimal weight = BigDecimal.ZERO;
 
+    private enum WeightUnit {
+        KG, G
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "weight_unit", nullable = false, length = 10)
-    private String weightUnit;
+    private WeightUnit weightUnit;
 
     @Column(nullable = false)
     private BigDecimal volume = BigDecimal.ZERO;
 
+    private enum VolumeUnit {
+        L, ML
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "volume_unit", nullable = false, length = 10)
-    private String volumeUnit;
+    private VolumeUnit volumeUnit;
 
     @Column(name = "dimension_width", nullable = false)
     private BigDecimal dimensionWidth = BigDecimal.ZERO;
@@ -50,6 +53,11 @@ public class ProductShippingInfo {
     @Column(name = "dimension_depth", nullable = false)
     private BigDecimal dimensionDepth = BigDecimal.ZERO;
 
+    private enum DimensionUnit {
+        MM, CM, M, KM
+    }
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "dimension_unit", nullable = false, length = 10)
-    private String dimensionUnit;
+    private DimensionUnit dimensionUnit;
 }

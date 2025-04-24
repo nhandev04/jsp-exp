@@ -2,20 +2,15 @@ package com.nguyenanhtu.exercise401.entity;
 
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.UUID;
-
+import java.util.*;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
 @Table(name = "products")
 public class Product {
     @Id
@@ -50,7 +45,7 @@ public class Product {
     @Column(name = "product_description", nullable = false)
     private String productDescription;
 
-    public enum ProductType {
+    private enum ProductType {
         SIMPLE,
         VARIABLE
     }

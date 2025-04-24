@@ -1,28 +1,21 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.util.UUID;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "countries")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "countries")
 public class Country {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_seq_generator")
+    @SequenceGenerator(name = "country_seq_generator", sequenceName = "countries_seq", allocationSize = 1)
+    @Column(nullable = false)
+    private Long id = 0L;
 
     @Column(name = "iso", nullable = false, length = 2)
     private String iso;

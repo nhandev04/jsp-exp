@@ -1,22 +1,16 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
-import java.util.UUID;
+import java.util.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "product_tags")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "product_tags")
 public class ProductTag {
 
     @EmbeddedId

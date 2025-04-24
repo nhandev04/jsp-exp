@@ -1,32 +1,22 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.math.BigDecimal;
-import java.util.UUID;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.FetchType;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "variant_options")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Table(name = "variant_options")
 public class VariantOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "title", nullable = false)
     private String title;

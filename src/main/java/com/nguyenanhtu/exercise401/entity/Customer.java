@@ -1,30 +1,18 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 import org.hibernate.annotations.CreationTimestamp;
-
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.type.SqlTypes;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+import java.util.*;
+import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
-@Table(name = "customer")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+@Table(name = "customer")
+public class Customer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -49,8 +37,4 @@ public class Customer {
     @CreationTimestamp
     @Column(name = "registered_at", nullable = false, updatable = false)
     private LocalDateTime registeredAt;
-
-    @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
-    private LocalDateTime updatedAt;
 }
