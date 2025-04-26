@@ -21,9 +21,9 @@ public class StaffAccount {
     private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "role_id", nullable = false)
     @JsonIgnore
-    private Role roleId = Role.getDefaultRole();
+    private Role roleId;
 
     @Column(name = "first_name", length = 100, nullable = false)
     private String firstName;
@@ -58,12 +58,12 @@ public class StaffAccount {
     private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true)
     @JsonIgnore
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "updated_by", referencedColumnName = "id")
+    @JoinColumn(name = "updated_by", referencedColumnName = "id", nullable = true)
     @JsonIgnore
     private StaffAccount updatedBy;
 

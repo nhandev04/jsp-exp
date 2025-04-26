@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.StaffAccountRequest;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.service.StaffAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +23,8 @@ public class StaffAccountController {
     }
 
     @PostMapping
-    public ResponseEntity<StaffAccount> createStaffAccount(@RequestBody StaffAccount staffAccount) {
-
-        System.out.println("Creating StaffAccount: " + staffAccount);
-
-        StaffAccount createdStaffAccount = staffAccountService.createStaffAccount(staffAccount);
+    public ResponseEntity<StaffAccount> createStaffAccount(@RequestBody StaffAccountRequest request) {
+        StaffAccount createdStaffAccount = staffAccountService.createStaffAccount(request);
         return ResponseEntity.ok(createdStaffAccount);
     }
 }
