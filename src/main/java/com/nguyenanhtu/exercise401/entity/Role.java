@@ -16,9 +16,15 @@ public class Role {
     @Column(name = "id", nullable = false)
     private UUID id;
 
-    @Column(nullable = false, length = 255)
-    private String role_name;
+    @Column(name = "role_name", nullable = false, length = 255)
+    private String roleName;
 
     @Column(nullable = true)
     private String privileges;
+
+    public static Optional<Role> findById(UUID id) {
+        return roles.stream().filter(role -> role.getId().equals(id)).findFirst();
+    }
+
+    private static List<Role> roles = new ArrayList<>();
 }

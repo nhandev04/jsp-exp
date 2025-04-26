@@ -3,7 +3,11 @@ package com.nguyenanhtu.exercise401.entity;
 import java.util.*;
 import jakarta.persistence.*;
 import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Getter
@@ -20,7 +24,8 @@ public class StaffAccount {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    @JsonIgnore
+    @JsonProperty("role")
+    @JsonDeserialize(contentAs = Role.class)
     private Role role;
 
     @Column(name = "first_name", length = 100, nullable = false)
@@ -47,9 +52,11 @@ public class StaffAccount {
     @Column(nullable = true)
     private String placeholder = null;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
+    @JsonFormat(pattern = "dd/MM/yyyy")
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
@@ -58,16 +65,10 @@ public class StaffAccount {
     @JsonIgnore
     private StaffAccount createdBy;
 
-    @OneToMany(mappedBy = "createdBy", cascade = CascadeType.ALL)
-    private List<StaffAccount> subCreatedBy;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     @JsonIgnore
     private StaffAccount updatedBy;
-
-    @OneToMany(mappedBy = "updatedBy", cascade = CascadeType.ALL)
-    private List<StaffAccount> subUpdatedBy;
 
     @PrePersist
     protected void onCreate() {
