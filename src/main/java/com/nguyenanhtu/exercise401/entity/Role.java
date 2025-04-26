@@ -11,6 +11,7 @@ import lombok.*;
 @AllArgsConstructor
 @Table(name = "roles")
 public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
@@ -22,9 +23,4 @@ public class Role {
     @Column(nullable = true)
     private String privileges;
 
-    public static Optional<Role> findById(UUID id) {
-        return roles.stream().filter(role -> role.getId().equals(id)).findFirst();
-    }
-
-    private static List<Role> roles = new ArrayList<>();
 }

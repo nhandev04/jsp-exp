@@ -1,22 +1,23 @@
 package com.nguyenanhtu.exercise401.service;
 
 import com.nguyenanhtu.exercise401.entity.Category;
+import com.nguyenanhtu.exercise401.repository.CategoryRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class CategoryService {
 
-    private final List<Category> categories = new ArrayList<>();
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Category> getAllCategories() {
-        return categories;
+        return categoryRepository.findAll();
     }
 
     public Category createCategory(Category category) {
-        categories.add(category);
-        return category;
+        return categoryRepository.save(category);
     }
 }
