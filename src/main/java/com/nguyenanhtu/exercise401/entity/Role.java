@@ -23,4 +23,11 @@ public class Role {
     @Column(nullable = true)
     private String privileges;
 
+    public static Role getDefaultRole() {
+        Role defaultRole = new Role();
+        defaultRole.setRoleName("Default Role");
+        defaultRole.setPrivileges("READ");
+        return defaultRole;
+    }
+
 }

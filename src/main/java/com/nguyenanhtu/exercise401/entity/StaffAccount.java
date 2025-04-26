@@ -6,8 +6,6 @@ import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 @Entity
 @Getter
@@ -20,13 +18,12 @@ public class StaffAccount {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false)
-    @JsonProperty("role")
-    @JsonDeserialize(contentAs = Role.class)
-    private Role role;
+    @JsonIgnore
+    private Role roleId = Role.getDefaultRole();
 
     @Column(name = "first_name", length = 100, nullable = false)
     private String firstName;
@@ -79,5 +76,29 @@ public class StaffAccount {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = new Date();
+    }
+
+    @Override
+    public String toString() {
+        return "StaffAccount{" +
+                "id=" + id +
+                " roleId=" + roleId +
+                "" +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", active=" + active +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                ", createdBy=" + (createdBy != null ? createdBy.getId() : "null") +
+                ", updatedBy=" + (updatedBy != null ? updatedBy.getId() : "null") +
+                ",image='" + image + '\'' +
+                ", placeholder='" + placeholder + '\'' +
+                ",phoneNumber='" + phoneNumber + '\'' +
+                '}';
+    }
+
+    public void setRole(Role role) {
+        this.roleId = role;
     }
 }

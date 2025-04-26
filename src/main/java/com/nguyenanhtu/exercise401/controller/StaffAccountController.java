@@ -23,6 +23,9 @@ public class StaffAccountController {
 
     @PostMapping
     public ResponseEntity<StaffAccount> createStaffAccount(@RequestBody StaffAccount staffAccount) {
+
+        System.out.println("Creating StaffAccount: " + staffAccount);
+
         StaffAccount createdStaffAccount = staffAccountService.createStaffAccount(staffAccount);
         return ResponseEntity.ok(createdStaffAccount);
     }
