@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.CategoryRequest;
 import com.nguyenanhtu.exercise401.entity.Category;
 import com.nguyenanhtu.exercise401.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
-        Category createdCategory = categoryService.createCategory(category);
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryRequest CategoryRequest) {
+        Category createdCategory = categoryService.createCategory(CategoryRequest);
         return ResponseEntity.ok(createdCategory);
     }
 }
