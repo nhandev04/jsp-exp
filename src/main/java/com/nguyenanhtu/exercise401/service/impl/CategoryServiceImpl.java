@@ -7,7 +7,6 @@ import com.nguyenanhtu.exercise401.repository.CategoryRepository;
 import com.nguyenanhtu.exercise401.repository.StaffAccountRepository;
 import com.nguyenanhtu.exercise401.service.CategoryService;
 
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import java.util.List;
 import org.springframework.stereotype.Service;
