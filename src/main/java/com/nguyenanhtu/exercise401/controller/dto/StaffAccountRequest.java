@@ -15,4 +15,6 @@ public class StaffAccountRequest {
     private Boolean active;
     private String image;
     private String placeholder;
+    private UUID createdBy;
+    private UUID updatedBy;
 }

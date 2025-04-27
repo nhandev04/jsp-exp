@@ -35,17 +35,23 @@ public class CategoryServiceImpl implements CategoryService {
         newCategory.setPlaceholder(request.getPlaceholder());
         newCategory.setActive(request.getActive());
 
-        Category parentCategory = categoryRepository.findById(request.getParentId())
-                .orElse(null);
-        newCategory.setParent(parentCategory);
+        if (request.getParentId() != null) {
+            Category parentCategory = categoryRepository.findById(request.getParentId())
+                    .orElse(null);
+            newCategory.setParent(parentCategory);
+        }
 
-        StaffAccount createdAccount = staffAccountRepository.findById(request.getCreatedBy())
-                .orElse(null);
-        newCategory.setCreatedBy(createdAccount);
+        if (request.getCreatedBy() != null) {
+            StaffAccount createdAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElse(null);
+            newCategory.setCreatedBy(createdAccount);
+        }
 
-        StaffAccount updatedAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                .orElse(null);
-        newCategory.setUpdatedBy(updatedAccount);
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElse(null);
+            newCategory.setUpdatedBy(updatedAccount);
+        }
 
         return categoryRepository.save(newCategory);
     }

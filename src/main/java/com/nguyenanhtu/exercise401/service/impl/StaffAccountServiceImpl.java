@@ -28,13 +28,30 @@ public class StaffAccountServiceImpl implements StaffAccountService {
 
     @Override
     public StaffAccount createStaffAccount(StaffAccountRequest request) {
-        Role role = roleRepository.findById(request.getRoleId())
-                .orElseThrow(() -> new RuntimeException("Role not found"));
 
         StaffAccount account = new StaffAccount();
 
+        if (request.getRoleId() != null) {
+            Role role = roleRepository.findById(request.getRoleId())
+                    .orElseThrow(() -> new RuntimeException("Role not found"));
+            account.setRoleId(role);
+        }
+
+        if (request.getCreatedBy() != null) {
+            StaffAccount createdAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found"));
+            account.setCreatedBy(createdAccount);
+
+        }
+
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found"));
+
+            account.setUpdatedBy(updatedAccount);
+        }
+
         account.setFirstName(request.getFirstName());
-        account.setRoleId(role);
         account.setLastName(request.getLastName());
         account.setEmail(request.getEmail());
         account.setPhoneNumber(request.getPhoneNumber());
