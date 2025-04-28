@@ -7,6 +7,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -20,6 +22,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    public Optional<Role> getRoleById(UUID id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
     public Role addRole(Role role) {
         return roleRepository.save(role);
     }
@@ -27,5 +34,10 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Role updateRole(Role role) {
         return roleRepository.save(role);
+    }
+
+    @Override
+    public void deleteRole(UUID id) {
+        roleRepository.deleteById(id);
     }
 }
