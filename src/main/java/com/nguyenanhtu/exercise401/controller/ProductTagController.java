@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
 import com.nguyenanhtu.exercise401.entity.ProductTag.ProductTagId;
 import com.nguyenanhtu.exercise401.service.ProductTagService;
@@ -37,19 +38,24 @@ public class ProductTagController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductTag> addProductTag(@RequestBody ProductTag productTag) {
-        ProductTag createdProductTag = productTagService.addProductTag(productTag);
+    public ResponseEntity<ProductTag> addProductTag(@RequestBody ProductTagRequest productTagRequest) {
+        ProductTag createdProductTag = productTagService.addProductTag(productTagRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductTag);
     }
 
     @PutMapping
-    public ResponseEntity<ProductTag> updateProductTag(@RequestBody ProductTag productTag) {
-        ProductTag updatedProductTag = productTagService.updateProductTag(productTag);
-        return ResponseEntity.ok(updatedProductTag);
+    public ResponseEntity<ProductTag> updateProductTag(@RequestBody ProductTagRequest productTagRequest) {
+        try {
+            ProductTag updatedProductTag = productTagService.updateProductTag(productTagRequest);
+            return ResponseEntity.ok(updatedProductTag);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping
-    public ResponseEntity<Void> deleteProductTag(@RequestBody ProductTagId id) {
+    public ResponseEntity<Void> deleteProductTag(@RequestBody ProductTagRequest productTagRequest) {
+        ProductTagId id = new ProductTagId(productTagRequest.getProductId(), productTagRequest.getTagId());
         productTagService.deleteProductTag(id);
         return ResponseEntity.noContent().build();
     }

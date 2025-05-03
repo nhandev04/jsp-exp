@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.CountryRequest;
 import com.nguyenanhtu.exercise401.entity.Country;
 import com.nguyenanhtu.exercise401.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,19 @@ public class CountryController {
     }
 
     @PostMapping
-    public ResponseEntity<Country> addCountry(@RequestBody Country country) {
-        Country createdCountry = countryService.addCountry(country);
+    public ResponseEntity<Country> addCountry(@RequestBody CountryRequest countryRequest) {
+        Country createdCountry = countryService.addCountry(countryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCountry);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody Country country) {
-        country.setId(id);
-        Country updatedCountry = countryService.updateCountry(country);
-        return ResponseEntity.ok(updatedCountry);
+    public ResponseEntity<Country> updateCountry(@PathVariable Long id, @RequestBody CountryRequest countryRequest) {
+        try {
+            Country updatedCountry = countryService.updateCountry(id, countryRequest);
+            return ResponseEntity.ok(updatedCountry);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

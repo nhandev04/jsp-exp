@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.CustomerAdressRequest;
 import com.nguyenanhtu.exercise401.entity.CustomerAdress;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface CustomerAdressService {
     Optional<CustomerAdress> getCustomerAddressById(UUID id);
     
     List<CustomerAdress> getCustomerAddressesByCustomerId(UUID customerId);
+
+    CustomerAdress addCustomerAddress(CustomerAdressRequest request);
     
-    CustomerAdress addCustomerAddress(CustomerAdress customerAddress);
-    
-    CustomerAdress updateCustomerAddress(CustomerAdress customerAddress);
+    CustomerAdress updateCustomerAddress(UUID id, CustomerAdressRequest request);
     
     void deleteCustomerAddress(UUID id);
 }

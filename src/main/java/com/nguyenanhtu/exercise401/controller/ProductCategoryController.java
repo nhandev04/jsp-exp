@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductCategoryRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCategory;
 import com.nguyenanhtu.exercise401.service.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,19 @@ public class ProductCategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductCategory> addProductCategory(@RequestBody ProductCategory productCategory) {
-        ProductCategory createdProductCategory = productCategoryService.addProductCategory(productCategory);
+    public ResponseEntity<ProductCategory> addProductCategory(@RequestBody ProductCategoryRequest productCategoryRequest) {
+        ProductCategory createdProductCategory = productCategoryService.addProductCategory(productCategoryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductCategory);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductCategory> updateProductCategory(@PathVariable UUID id, @RequestBody ProductCategory productCategory) {
-        productCategory.setId(id);
-        ProductCategory updatedProductCategory = productCategoryService.updateProductCategory(productCategory);
-        return ResponseEntity.ok(updatedProductCategory);
+    public ResponseEntity<ProductCategory> updateProductCategory(@PathVariable UUID id, @RequestBody ProductCategoryRequest productCategoryRequest) {
+        try {
+            ProductCategory updatedProductCategory = productCategoryService.updateProductCategory(id, productCategoryRequest);
+            return ResponseEntity.ok(updatedProductCategory);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

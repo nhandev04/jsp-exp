@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.OrderItemRequest;
 import com.nguyenanhtu.exercise401.entity.OrderItem;
 import com.nguyenanhtu.exercise401.service.OrderItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class OrderItemController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderItem> addOrderItem(@RequestBody OrderItem orderItem) {
-        OrderItem createdOrderItem = orderItemService.addOrderItem(orderItem);
+    public ResponseEntity<OrderItem> addOrderItem(@RequestBody OrderItemRequest orderItemRequest) {
+        OrderItem createdOrderItem = orderItemService.addOrderItem(orderItemRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrderItem);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable UUID id, @RequestBody OrderItem orderItem) {
-        orderItem.setId(id);
-        OrderItem updatedOrderItem = orderItemService.updateOrderItem(orderItem);
-        return ResponseEntity.ok(updatedOrderItem);
+    public ResponseEntity<OrderItem> updateOrderItem(@PathVariable UUID id, @RequestBody OrderItemRequest orderItemRequest) {
+        try {
+            OrderItem updatedOrderItem = orderItemService.updateOrderItem(id, orderItemRequest);
+            return ResponseEntity.ok(updatedOrderItem);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

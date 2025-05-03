@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductAttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.ProductAttributeValue;
 import java.util.List;
 import java.util.Optional;
@@ -12,13 +13,13 @@ public interface ProductAttributeValueService {
     
     List<ProductAttributeValue> getProductAttributeValuesByProductAttributeId(UUID productAttributeId);
     
-    List<ProductAttributeValue> getProductAttributeValuesByAttributeValueId(UUID attributeValueId);
-    
     List<ProductAttributeValue> getProductAttributeValuesByProductId(UUID productId);
     
-    ProductAttributeValue addProductAttributeValue(ProductAttributeValue productAttributeValue);
+    List<ProductAttributeValue> getProductAttributeValuesByAttributeValueId(UUID attributeValueId);
+
+    ProductAttributeValue addProductAttributeValue(ProductAttributeValueRequest request);
     
-    ProductAttributeValue updateProductAttributeValue(ProductAttributeValue productAttributeValue);
+    ProductAttributeValue updateProductAttributeValue(UUID id, ProductAttributeValueRequest request);
     
     void deleteProductAttributeValue(UUID id);
 }

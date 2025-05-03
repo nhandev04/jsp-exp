@@ -8,12 +8,12 @@ import java.util.UUID;
 
 public interface CategoryService {
     List<Category> getAllCategories();
-
+    
     Optional<Category> getCategoryById(UUID id);
 
     Category createCategory(CategoryRequest request);
-
+    
     Category updateCategory(UUID id, CategoryRequest request);
-
+    
     void deleteCategory(UUID id);
 }

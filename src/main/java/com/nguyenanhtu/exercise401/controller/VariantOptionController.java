@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.VariantOptionRequest;
 import com.nguyenanhtu.exercise401.entity.VariantOption;
 import com.nguyenanhtu.exercise401.service.VariantOptionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class VariantOptionController {
     }
 
     @PostMapping
-    public ResponseEntity<VariantOption> addVariantOption(@RequestBody VariantOption variantOption) {
-        VariantOption createdVariantOption = variantOptionService.addVariantOption(variantOption);
+    public ResponseEntity<VariantOption> addVariantOption(@RequestBody VariantOptionRequest variantOptionRequest) {
+        VariantOption createdVariantOption = variantOptionService.addVariantOption(variantOptionRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVariantOption);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<VariantOption> updateVariantOption(@PathVariable UUID id, @RequestBody VariantOption variantOption) {
-        variantOption.setId(id);
-        VariantOption updatedVariantOption = variantOptionService.updateVariantOption(variantOption);
-        return ResponseEntity.ok(updatedVariantOption);
+    public ResponseEntity<VariantOption> updateVariantOption(@PathVariable UUID id, @RequestBody VariantOptionRequest variantOptionRequest) {
+        try {
+            VariantOption updatedVariantOption = variantOptionService.updateVariantOption(id, variantOptionRequest);
+            return ResponseEntity.ok(updatedVariantOption);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

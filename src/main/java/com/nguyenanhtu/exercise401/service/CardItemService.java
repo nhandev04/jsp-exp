@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.CardItemRequest;
 import com.nguyenanhtu.exercise401.entity.CardItem;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface CardItemService {
     Optional<CardItem> getCardItemById(UUID id);
     
     List<CardItem> getCardItemsByCardId(UUID cardId);
+
+    CardItem addCardItem(CardItemRequest request);
     
-    CardItem addCardItem(CardItem cardItem);
-    
-    CardItem updateCardItem(CardItem cardItem);
+    CardItem updateCardItem(UUID id, CardItemRequest request);
     
     void deleteCardItem(UUID id);
 }

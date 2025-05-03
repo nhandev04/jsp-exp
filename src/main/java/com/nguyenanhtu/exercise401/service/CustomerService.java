@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.CustomerRequest;
 import com.nguyenanhtu.exercise401.entity.Customer;
 import java.util.List;
 import java.util.Optional;
@@ -12,9 +13,9 @@ public interface CustomerService {
     
     Optional<Customer> getCustomerByEmail(String email);
     
-    Customer addCustomer(Customer customer);
+    Customer addCustomer(CustomerRequest request);
     
-    Customer updateCustomer(Customer customer);
+    Customer updateCustomer(UUID id, CustomerRequest request);
     
     void deleteCustomer(UUID id);
 }

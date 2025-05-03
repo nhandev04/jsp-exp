@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.TagRequest;
 import com.nguyenanhtu.exercise401.entity.Tag;
 import com.nguyenanhtu.exercise401.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class TagController {
     }
 
     @PostMapping
-    public ResponseEntity<Tag> addTag(@RequestBody Tag tag) {
-        Tag createdTag = tagService.addTag(tag);
+    public ResponseEntity<Tag> addTag(@RequestBody TagRequest tagRequest) {
+        Tag createdTag = tagService.addTag(tagRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdTag);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Tag> updateTag(@PathVariable UUID id, @RequestBody Tag tag) {
-        tag.setId(id);
-        Tag updatedTag = tagService.updateTag(tag);
-        return ResponseEntity.ok(updatedTag);
+    public ResponseEntity<Tag> updateTag(@PathVariable UUID id, @RequestBody TagRequest tagRequest) {
+        try {
+            Tag updatedTag = tagService.updateTag(id, tagRequest);
+            return ResponseEntity.ok(updatedTag);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ShippingRateRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingRate;
 import com.nguyenanhtu.exercise401.service.ShippingRateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class ShippingRateController {
     }
 
     @PostMapping
-    public ResponseEntity<ShippingRate> addShippingRate(@RequestBody ShippingRate shippingRate) {
-        ShippingRate createdShippingRate = shippingRateService.addShippingRate(shippingRate);
+    public ResponseEntity<ShippingRate> addShippingRate(@RequestBody ShippingRateRequest shippingRateRequest) {
+        ShippingRate createdShippingRate = shippingRateService.addShippingRate(shippingRateRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdShippingRate);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ShippingRate> updateShippingRate(@PathVariable UUID id, @RequestBody ShippingRate shippingRate) {
-        shippingRate.setId(id);
-        ShippingRate updatedShippingRate = shippingRateService.updateShippingRate(shippingRate);
-        return ResponseEntity.ok(updatedShippingRate);
+    public ResponseEntity<ShippingRate> updateShippingRate(@PathVariable UUID id, @RequestBody ShippingRateRequest shippingRateRequest) {
+        try {
+            ShippingRate updatedShippingRate = shippingRateService.updateShippingRate(id, shippingRateRequest);
+            return ResponseEntity.ok(updatedShippingRate);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

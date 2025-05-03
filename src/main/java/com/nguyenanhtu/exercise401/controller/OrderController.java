@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.OrderRequest;
 import com.nguyenanhtu.exercise401.entity.Order;
 import com.nguyenanhtu.exercise401.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,19 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<Order> addOrder(@RequestBody Order order) {
-        Order createdOrder = orderService.addOrder(order);
+    public ResponseEntity<Order> addOrder(@RequestBody OrderRequest orderRequest) {
+        Order createdOrder = orderService.addOrder(orderRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody Order order) {
-        order.setId(id);
-        Order updatedOrder = orderService.updateOrder(order);
-        return ResponseEntity.ok(updatedOrder);
+    public ResponseEntity<Order> updateOrder(@PathVariable String id, @RequestBody OrderRequest orderRequest) {
+        try {
+            Order updatedOrder = orderService.updateOrder(id, orderRequest);
+            return ResponseEntity.ok(updatedOrder);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

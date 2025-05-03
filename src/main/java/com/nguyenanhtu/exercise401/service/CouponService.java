@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.CouponRequest;
 import com.nguyenanhtu.exercise401.entity.Coupon;
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +11,11 @@ public interface CouponService {
     
     Optional<Coupon> getCouponById(UUID id);
     
-    Optional<Coupon> getCouponByCode(String code);
+    Optional<Coupon> getCouponByCode(String couponCode);
+
+    Coupon addCoupon(CouponRequest request);
     
-    Coupon addCoupon(Coupon coupon);
-    
-    Coupon updateCoupon(Coupon coupon);
+    Coupon updateCoupon(UUID id, CouponRequest request);
     
     void deleteCoupon(UUID id);
 }

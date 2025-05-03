@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.CountryRequest;
 import com.nguyenanhtu.exercise401.entity.Country;
 import java.util.List;
 import java.util.Optional;
@@ -8,10 +9,10 @@ public interface CountryService {
     List<Country> getAllCountries();
     
     Optional<Country> getCountryById(Long id);
+
+    Country addCountry(CountryRequest request);
     
-    Country addCountry(Country country);
-    
-    Country updateCountry(Country country);
+    Country updateCountry(Long id, CountryRequest request);
     
     void deleteCountry(Long id);
 }

@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.AttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
 import com.nguyenanhtu.exercise401.service.AttributeValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class AttributeValueController {
     }
 
     @PostMapping
-    public ResponseEntity<AttributeValue> addAttributeValue(@RequestBody AttributeValue attributeValue) {
-        AttributeValue createdAttributeValue = attributeValueService.addAttributeValue(attributeValue);
+    public ResponseEntity<AttributeValue> addAttributeValue(@RequestBody AttributeValueRequest attributeValueRequest) {
+        AttributeValue createdAttributeValue = attributeValueService.addAttributeValue(attributeValueRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAttributeValue);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<AttributeValue> updateAttributeValue(@PathVariable UUID id, @RequestBody AttributeValue attributeValue) {
-        attributeValue.setId(id);
-        AttributeValue updatedAttributeValue = attributeValueService.updateAttributeValue(attributeValue);
-        return ResponseEntity.ok(updatedAttributeValue);
+    public ResponseEntity<AttributeValue> updateAttributeValue(@PathVariable UUID id, @RequestBody AttributeValueRequest attributeValueRequest) {
+        try {
+            AttributeValue updatedAttributeValue = attributeValueService.updateAttributeValue(id, attributeValueRequest);
+            return ResponseEntity.ok(updatedAttributeValue);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

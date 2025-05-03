@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.NotificationRequest;
 import com.nguyenanhtu.exercise401.entity.Notification;
 import com.nguyenanhtu.exercise401.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class NotificationController {
     }
 
     @PostMapping
-    public ResponseEntity<Notification> addNotification(@RequestBody Notification notification) {
-        Notification createdNotification = notificationService.addNotification(notification);
+    public ResponseEntity<Notification> addNotification(@RequestBody NotificationRequest notificationRequest) {
+        Notification createdNotification = notificationService.addNotification(notificationRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdNotification);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Notification> updateNotification(@PathVariable UUID id, @RequestBody Notification notification) {
-        notification.setId(id);
-        Notification updatedNotification = notificationService.updateNotification(notification);
-        return ResponseEntity.ok(updatedNotification);
+    public ResponseEntity<Notification> updateNotification(@PathVariable UUID id, @RequestBody NotificationRequest notificationRequest) {
+        try {
+            Notification updatedNotification = notificationService.updateNotification(id, notificationRequest);
+            return ResponseEntity.ok(updatedNotification);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

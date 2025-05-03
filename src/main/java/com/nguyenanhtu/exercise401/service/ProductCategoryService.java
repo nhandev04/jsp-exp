@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductCategoryRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCategory;
 import java.util.List;
 import java.util.Optional;
@@ -13,10 +14,10 @@ public interface ProductCategoryService {
     List<ProductCategory> getProductCategoriesByProductId(UUID productId);
     
     List<ProductCategory> getProductCategoriesByCategoryId(UUID categoryId);
+
+    ProductCategory addProductCategory(ProductCategoryRequest request);
     
-    ProductCategory addProductCategory(ProductCategory productCategory);
-    
-    ProductCategory updateProductCategory(ProductCategory productCategory);
+    ProductCategory updateProductCategory(UUID id, ProductCategoryRequest request);
     
     void deleteProductCategory(UUID id);
 }

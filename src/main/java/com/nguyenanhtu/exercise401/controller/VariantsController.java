@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.VariantsRequest;
 import com.nguyenanhtu.exercise401.entity.Variants;
 import com.nguyenanhtu.exercise401.service.VariantsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,23 +37,20 @@ public class VariantsController {
         return ResponseEntity.ok(variants);
     }
 
-    @GetMapping("/variant-option/{variantOptionId}")
-    public ResponseEntity<List<Variants>> getVariantsByVariantOptionId(@PathVariable UUID variantOptionId) {
-        List<Variants> variants = variantsService.getVariantsByVariantOptionId(variantOptionId);
-        return ResponseEntity.ok(variants);
-    }
-
     @PostMapping
-    public ResponseEntity<Variants> addVariant(@RequestBody Variants variant) {
-        Variants createdVariant = variantsService.addVariant(variant);
+    public ResponseEntity<Variants> addVariant(@RequestBody VariantsRequest variantsRequest) {
+        Variants createdVariant = variantsService.addVariant(variantsRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdVariant);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Variants> updateVariant(@PathVariable UUID id, @RequestBody Variants variant) {
-        variant.setId(id);
-        Variants updatedVariant = variantsService.updateVariant(variant);
-        return ResponseEntity.ok(updatedVariant);
+    public ResponseEntity<Variants> updateVariant(@PathVariable UUID id, @RequestBody VariantsRequest variantsRequest) {
+        try {
+            Variants updatedVariant = variantsService.updateVariant(id, variantsRequest);
+            return ResponseEntity.ok(updatedVariant);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

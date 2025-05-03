@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.ProductShippingInfo;
 import com.nguyenanhtu.exercise401.service.ProductShippingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +39,19 @@ public class ProductShippingInfoController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductShippingInfo> addProductShippingInfo(@RequestBody ProductShippingInfo productShippingInfo) {
-        ProductShippingInfo createdProductShippingInfo = productShippingInfoService.addProductShippingInfo(productShippingInfo);
+    public ResponseEntity<ProductShippingInfo> addProductShippingInfo(@RequestBody ProductShippingInfoRequest productShippingInfoRequest) {
+        ProductShippingInfo createdProductShippingInfo = productShippingInfoService.addProductShippingInfo(productShippingInfoRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductShippingInfo);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductShippingInfo> updateProductShippingInfo(@PathVariable UUID id, @RequestBody ProductShippingInfo productShippingInfo) {
-        productShippingInfo.setId(id);
-        ProductShippingInfo updatedProductShippingInfo = productShippingInfoService.updateProductShippingInfo(productShippingInfo);
-        return ResponseEntity.ok(updatedProductShippingInfo);
+    public ResponseEntity<ProductShippingInfo> updateProductShippingInfo(@PathVariable UUID id, @RequestBody ProductShippingInfoRequest productShippingInfoRequest) {
+        try {
+            ProductShippingInfo updatedProductShippingInfo = productShippingInfoService.updateProductShippingInfo(id, productShippingInfoRequest);
+            return ResponseEntity.ok(updatedProductShippingInfo);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

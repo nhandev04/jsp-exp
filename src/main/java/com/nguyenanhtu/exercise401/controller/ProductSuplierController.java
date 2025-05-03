@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductSuplierRequest;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier.ProductSuplierId;
 import com.nguyenanhtu.exercise401.service.ProductSuplierService;
@@ -47,15 +48,23 @@ public class ProductSuplierController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductSuplier> addProductSuplier(@RequestBody ProductSuplier productSuplier) {
-        ProductSuplier createdProductSuplier = productSuplierService.addProductSuplier(productSuplier);
+    public ResponseEntity<ProductSuplier> addProductSuplier(@RequestBody ProductSuplierRequest productSuplierRequest) {
+        ProductSuplier createdProductSuplier = productSuplierService.addProductSuplier(productSuplierRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductSuplier);
     }
 
-    @PutMapping
-    public ResponseEntity<ProductSuplier> updateProductSuplier(@RequestBody ProductSuplier productSuplier) {
-        ProductSuplier updatedProductSuplier = productSuplierService.updateProductSuplier(productSuplier);
-        return ResponseEntity.ok(updatedProductSuplier);
+    @PutMapping("/{productId}/{supplierId}")
+    public ResponseEntity<ProductSuplier> updateProductSuplier(
+            @PathVariable UUID productId,
+            @PathVariable UUID supplierId,
+            @RequestBody ProductSuplierRequest productSuplierRequest) {
+        try {
+            ProductSuplierId id = new ProductSuplierId(productId, supplierId);
+            ProductSuplier updatedProductSuplier = productSuplierService.updateProductSuplier(id, productSuplierRequest);
+            return ResponseEntity.ok(updatedProductSuplier);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{productId}/{supplierId}")

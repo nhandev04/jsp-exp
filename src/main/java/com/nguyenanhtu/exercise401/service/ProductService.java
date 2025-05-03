@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductRequest;
 import com.nguyenanhtu.exercise401.entity.Product;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface ProductService {
     Optional<Product> getProductById(UUID id);
     
     Optional<Product> getProductBySlug(String slug);
+
+    Product addProduct(ProductRequest request);
     
-    Product addProduct(Product product);
-    
-    Product updateProduct(Product product);
+    Product updateProduct(UUID id, ProductRequest request);
     
     void deleteProduct(UUID id);
 }

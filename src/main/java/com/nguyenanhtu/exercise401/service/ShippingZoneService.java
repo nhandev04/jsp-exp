@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ShippingZoneRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingZone;
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +10,10 @@ public interface ShippingZoneService {
     List<ShippingZone> getAllShippingZones();
     
     Optional<ShippingZone> getShippingZoneById(UUID id);
+
+    ShippingZone addShippingZone(ShippingZoneRequest request);
     
-    ShippingZone addShippingZone(ShippingZone shippingZone);
-    
-    ShippingZone updateShippingZone(ShippingZone shippingZone);
+    ShippingZone updateShippingZone(UUID id, ShippingZoneRequest request);
     
     void deleteShippingZone(UUID id);
 }

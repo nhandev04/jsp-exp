@@ -7,14 +7,15 @@ import com.nguyenanhtu.exercise401.repository.CategoryRepository;
 import com.nguyenanhtu.exercise401.repository.StaffAccountRepository;
 import com.nguyenanhtu.exercise401.service.CategoryService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
@@ -32,71 +33,54 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(CategoryRequest request) {
-        Category newCategory = new Category();
-
-        newCategory.setCategoryName(request.getCategoryName());
-        newCategory.setCategoryDescription(request.getCategoryDescription());
-        newCategory.setIcon(request.getIcon());
-        newCategory.setImage(request.getImage());
-        newCategory.setPlaceholder(request.getPlaceholder());
-        newCategory.setActive(request.getActive());
-
-        if (request.getParentId() != null) {
-            Category parentCategory = categoryRepository.findById(request.getParentId())
-                    .orElse(null);
-            newCategory.setParent(parentCategory);
-        }
-
-        if (request.getCreatedBy() != null) {
-            StaffAccount createdAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElse(null);
-            newCategory.setCreatedBy(createdAccount);
-        }
-
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElse(null);
-            newCategory.setUpdatedBy(updatedAccount);
-        }
-
-        return categoryRepository.save(newCategory);
+        Category category = new Category();
+        return saveCategory(category, request);
     }
 
     @Override
     public Category updateCategory(UUID id, CategoryRequest request) {
-        Optional<Category> categoryOptional = categoryRepository.findById(id);
-        if (categoryOptional.isEmpty()) {
-            throw new RuntimeException("Category not found with id: " + id);
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
+        
+        return saveCategory(category, request);
+    }
+
+    @Override
+    public void deleteCategory(UUID id) {
+        categoryRepository.deleteById(id);
+    }
+    
+    private Category saveCategory(Category category, CategoryRequest request) {
+        // Set parent category if provided
+        if (request.getParentId() != null) {
+            Category parentCategory = categoryRepository.findById(request.getParentId())
+                    .orElseThrow(() -> new RuntimeException("Parent category not found with id: " + request.getParentId()));
+            category.setParent(parentCategory);
         }
-
-        Category category = categoryOptional.get();
-
+        
+        // Set createdBy if provided and this is a new category
+        if (request.getCreatedBy() != null && category.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+            category.setCreatedBy(createdByAccount);
+        }
+        
+        // Set updatedBy if provided
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+            category.setUpdatedBy(updatedByAccount);
+        }
+        
+        // Set basic properties
         category.setCategoryName(request.getCategoryName());
         category.setCategoryDescription(request.getCategoryDescription());
         category.setIcon(request.getIcon());
         category.setImage(request.getImage());
         category.setPlaceholder(request.getPlaceholder());
         category.setActive(request.getActive());
-
-        if (request.getParentId() != null) {
-            Category parentCategory = categoryRepository.findById(request.getParentId())
-                    .orElse(null);
-            category.setParent(parentCategory);
-        } else {
-            category.setParent(null);
-        }
-
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElse(null);
-            category.setUpdatedBy(updatedAccount);
-        }
-
+        
+        // Save and return the category
         return categoryRepository.save(category);
-    }
-
-    @Override
-    public void deleteCategory(UUID id) {
-        categoryRepository.deleteById(id);
     }
 }

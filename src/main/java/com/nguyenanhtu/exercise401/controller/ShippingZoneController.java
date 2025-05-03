@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ShippingZoneRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingZone;
 import com.nguyenanhtu.exercise401.service.ShippingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class ShippingZoneController {
     }
 
     @PostMapping
-    public ResponseEntity<ShippingZone> addShippingZone(@RequestBody ShippingZone shippingZone) {
-        ShippingZone createdShippingZone = shippingZoneService.addShippingZone(shippingZone);
+    public ResponseEntity<ShippingZone> addShippingZone(@RequestBody ShippingZoneRequest shippingZoneRequest) {
+        ShippingZone createdShippingZone = shippingZoneService.addShippingZone(shippingZoneRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdShippingZone);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ShippingZone> updateShippingZone(@PathVariable UUID id, @RequestBody ShippingZone shippingZone) {
-        shippingZone.setId(id);
-        ShippingZone updatedShippingZone = shippingZoneService.updateShippingZone(shippingZone);
-        return ResponseEntity.ok(updatedShippingZone);
+    public ResponseEntity<ShippingZone> updateShippingZone(@PathVariable UUID id, @RequestBody ShippingZoneRequest shippingZoneRequest) {
+        try {
+            ShippingZone updatedShippingZone = shippingZoneService.updateShippingZone(id, shippingZoneRequest);
+            return ResponseEntity.ok(updatedShippingZone);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

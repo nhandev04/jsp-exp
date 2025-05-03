@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.SupplierRequest;
 import com.nguyenanhtu.exercise401.entity.Supplier;
 import com.nguyenanhtu.exercise401.service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class SupplierController {
     }
 
     @PostMapping
-    public ResponseEntity<Supplier> addSupplier(@RequestBody Supplier supplier) {
-        Supplier createdSupplier = supplierService.addSupplier(supplier);
+    public ResponseEntity<Supplier> addSupplier(@RequestBody SupplierRequest supplierRequest) {
+        Supplier createdSupplier = supplierService.addSupplier(supplierRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSupplier);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Supplier> updateSupplier(@PathVariable UUID id, @RequestBody Supplier supplier) {
-        supplier.setId(id);
-        Supplier updatedSupplier = supplierService.updateSupplier(supplier);
-        return ResponseEntity.ok(updatedSupplier);
+    public ResponseEntity<Supplier> updateSupplier(@PathVariable UUID id, @RequestBody SupplierRequest supplierRequest) {
+        try {
+            Supplier updatedSupplier = supplierService.updateSupplier(id, supplierRequest);
+            return ResponseEntity.ok(updatedSupplier);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

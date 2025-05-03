@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.SellsRequest;
 import com.nguyenanhtu.exercise401.entity.Sells;
 import com.nguyenanhtu.exercise401.service.SellsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,35 +25,37 @@ public class SellsController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Sells> getSellsById(@PathVariable UUID id) {
-        return sellsService.getSellsById(id)
+    public ResponseEntity<Sells> getSellById(@PathVariable UUID id) {
+        return sellsService.getSellById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/product/{productId}")
-    public ResponseEntity<Sells> getSellsByProductId(@PathVariable UUID productId) {
-        return sellsService.getSellsByProductId(productId)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<List<Sells>> getSellsByProductId(@PathVariable UUID productId) {
+        List<Sells> sells = sellsService.getSellsByProductId(productId);
+        return ResponseEntity.ok(sells);
     }
 
     @PostMapping
-    public ResponseEntity<Sells> addSells(@RequestBody Sells sells) {
-        Sells createdSells = sellsService.addSells(sells);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdSells);
+    public ResponseEntity<Sells> addSell(@RequestBody SellsRequest sellsRequest) {
+        Sells createdSell = sellsService.addSell(sellsRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdSell);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Sells> updateSells(@PathVariable UUID id, @RequestBody Sells sells) {
-        sells.setId(id);
-        Sells updatedSells = sellsService.updateSells(sells);
-        return ResponseEntity.ok(updatedSells);
+    public ResponseEntity<Sells> updateSell(@PathVariable UUID id, @RequestBody SellsRequest sellsRequest) {
+        try {
+            Sells updatedSell = sellsService.updateSell(id, sellsRequest);
+            return ResponseEntity.ok(updatedSell);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSells(@PathVariable UUID id) {
-        sellsService.deleteSells(id);
+    public ResponseEntity<Void> deleteSell(@PathVariable UUID id) {
+        sellsService.deleteSell(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.ProductShippingInfo;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface ProductShippingInfoService {
     Optional<ProductShippingInfo> getProductShippingInfoById(UUID id);
     
     Optional<ProductShippingInfo> getProductShippingInfoByProductId(UUID productId);
+
+    ProductShippingInfo addProductShippingInfo(ProductShippingInfoRequest request);
     
-    ProductShippingInfo addProductShippingInfo(ProductShippingInfo productShippingInfo);
-    
-    ProductShippingInfo updateProductShippingInfo(ProductShippingInfo productShippingInfo);
+    ProductShippingInfo updateProductShippingInfo(UUID id, ProductShippingInfoRequest request);
     
     void deleteProductShippingInfo(UUID id);
 }

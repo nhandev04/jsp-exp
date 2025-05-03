@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.CardRequest;
 import com.nguyenanhtu.exercise401.entity.Card;
 import com.nguyenanhtu.exercise401.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class CardController {
     }
 
     @PostMapping
-    public ResponseEntity<Card> addCard(@RequestBody Card card) {
-        Card createdCard = cardService.addCard(card);
+    public ResponseEntity<Card> addCard(@RequestBody CardRequest cardRequest) {
+        Card createdCard = cardService.addCard(cardRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCard);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Card> updateCard(@PathVariable UUID id, @RequestBody Card card) {
-        card.setId(id);
-        Card updatedCard = cardService.updateCard(card);
-        return ResponseEntity.ok(updatedCard);
+    public ResponseEntity<Card> updateCard(@PathVariable UUID id, @RequestBody CardRequest cardRequest) {
+        try {
+            Card updatedCard = cardService.updateCard(id, cardRequest);
+            return ResponseEntity.ok(updatedCard);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

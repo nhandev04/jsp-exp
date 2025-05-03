@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.RoleRequest;
 import com.nguyenanhtu.exercise401.entity.Role;
 import com.nguyenanhtu.exercise401.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class RoleController {
     }
 
     @PostMapping
-    public ResponseEntity<Role> addRole(@RequestBody Role role) {
-        Role createdRole = roleService.addRole(role);
+    public ResponseEntity<Role> createRole(@RequestBody RoleRequest roleRequest) {
+        Role createdRole = roleService.createRole(roleRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdRole);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Role> updateRole(@PathVariable UUID id, @RequestBody Role role) {
-        role.setId(id);
-        Role updatedRole = roleService.updateRole(role);
-        return ResponseEntity.ok(updatedRole);
+    public ResponseEntity<Role> updateRole(@PathVariable UUID id, @RequestBody RoleRequest roleRequest) {
+        try {
+            Role updatedRole = roleService.updateRole(id, roleRequest);
+            return ResponseEntity.ok(updatedRole);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

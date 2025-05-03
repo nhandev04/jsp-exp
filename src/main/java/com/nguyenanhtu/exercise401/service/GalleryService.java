@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.GalleryRequest;
 import com.nguyenanhtu.exercise401.entity.Gallery;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface GalleryService {
     Optional<Gallery> getGalleryById(UUID id);
     
     List<Gallery> getGalleriesByProductId(UUID productId);
+
+    Gallery addGallery(GalleryRequest request);
     
-    Gallery addGallery(Gallery gallery);
-    
-    Gallery updateGallery(Gallery gallery);
+    Gallery updateGallery(UUID id, GalleryRequest request);
     
     void deleteGallery(UUID id);
 }

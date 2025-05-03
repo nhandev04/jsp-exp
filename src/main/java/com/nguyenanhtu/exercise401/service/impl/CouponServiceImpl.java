@@ -1,9 +1,11 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
+import com.nguyenanhtu.exercise401.controller.dto.CouponRequest;
 import com.nguyenanhtu.exercise401.entity.Coupon;
 import com.nguyenanhtu.exercise401.repository.CouponRepository;
 import com.nguyenanhtu.exercise401.service.CouponService;
-import lombok.AllArgsConstructor;
+
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class CouponServiceImpl implements CouponService {
 
     private final CouponRepository couponRepository;
@@ -25,24 +27,43 @@ public class CouponServiceImpl implements CouponService {
     public Optional<Coupon> getCouponById(UUID id) {
         return couponRepository.findById(id);
     }
-
+    
     @Override
-    public Optional<Coupon> getCouponByCode(String code) {
-        return couponRepository.findByCode(code);
+    public Optional<Coupon> getCouponByCode(String couponCode) {
+        return couponRepository.findByCode(couponCode);
     }
 
     @Override
-    public Coupon addCoupon(Coupon coupon) {
-        return couponRepository.save(coupon);
+    public Coupon addCoupon(CouponRequest request) {
+        Coupon coupon = new Coupon();
+        return saveCoupon(coupon, request);
     }
 
     @Override
-    public Coupon updateCoupon(Coupon coupon) {
-        return couponRepository.save(coupon);
+    public Coupon updateCoupon(UUID id, CouponRequest request) {
+        Coupon coupon = couponRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Coupon not found with id: " + id));
+        
+        return saveCoupon(coupon, request);
     }
 
     @Override
     public void deleteCoupon(UUID id) {
         couponRepository.deleteById(id);
+    }
+    
+    private Coupon saveCoupon(Coupon coupon, CouponRequest request) {
+        // Set basic properties
+        coupon.setCode(request.getCode());
+        coupon.setType(request.getType());
+        coupon.setValue(request.getValue());
+        coupon.setMinOrderAmount(request.getMinOrderAmount());
+        coupon.setMaxUses(request.getMaxUses());
+        coupon.setUsesCount(request.getUsesCount());
+        coupon.setExpiryDate(request.getExpiryDate());
+        coupon.setActive(request.getActive());
+        
+        // Save and return the coupon
+        return couponRepository.save(coupon);
     }
 }

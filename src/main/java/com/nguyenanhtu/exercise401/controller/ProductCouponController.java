@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductCouponRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCoupon;
 import com.nguyenanhtu.exercise401.service.ProductCouponService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,19 @@ public class ProductCouponController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductCoupon> addProductCoupon(@RequestBody ProductCoupon productCoupon) {
-        ProductCoupon createdProductCoupon = productCouponService.addProductCoupon(productCoupon);
+    public ResponseEntity<ProductCoupon> addProductCoupon(@RequestBody ProductCouponRequest productCouponRequest) {
+        ProductCoupon createdProductCoupon = productCouponService.addProductCoupon(productCouponRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductCoupon);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductCoupon> updateProductCoupon(@PathVariable UUID id, @RequestBody ProductCoupon productCoupon) {
-        productCoupon.setId(id);
-        ProductCoupon updatedProductCoupon = productCouponService.updateProductCoupon(productCoupon);
-        return ResponseEntity.ok(updatedProductCoupon);
+    public ResponseEntity<ProductCoupon> updateProductCoupon(@PathVariable UUID id, @RequestBody ProductCouponRequest productCouponRequest) {
+        try {
+            ProductCoupon updatedProductCoupon = productCouponService.updateProductCoupon(id, productCouponRequest);
+            return ResponseEntity.ok(updatedProductCoupon);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.TagRequest;
 import com.nguyenanhtu.exercise401.entity.Tag;
 import java.util.List;
 import java.util.Optional;
@@ -9,10 +10,10 @@ public interface TagService {
     List<Tag> getAllTags();
     
     Optional<Tag> getTagById(UUID id);
+
+    Tag addTag(TagRequest request);
     
-    Tag addTag(Tag tag);
-    
-    Tag updateTag(Tag tag);
+    Tag updateTag(UUID id, TagRequest request);
     
     void deleteTag(UUID id);
 }

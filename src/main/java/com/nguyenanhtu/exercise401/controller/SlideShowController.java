@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.SlideShowRequest;
 import com.nguyenanhtu.exercise401.entity.SlideShow;
 import com.nguyenanhtu.exercise401.service.SlideShowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class SlideShowController {
     }
 
     @PostMapping
-    public ResponseEntity<SlideShow> addSlideShow(@RequestBody SlideShow slideShow) {
-        SlideShow createdSlideShow = slideShowService.addSlideShow(slideShow);
+    public ResponseEntity<SlideShow> addSlideShow(@RequestBody SlideShowRequest slideShowRequest) {
+        SlideShow createdSlideShow = slideShowService.addSlideShow(slideShowRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdSlideShow);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SlideShow> updateSlideShow(@PathVariable UUID id, @RequestBody SlideShow slideShow) {
-        slideShow.setId(id);
-        SlideShow updatedSlideShow = slideShowService.updateSlideShow(slideShow);
-        return ResponseEntity.ok(updatedSlideShow);
+    public ResponseEntity<SlideShow> updateSlideShow(@PathVariable UUID id, @RequestBody SlideShowRequest slideShowRequest) {
+        try {
+            SlideShow updatedSlideShow = slideShowService.updateSlideShow(id, slideShowRequest);
+            return ResponseEntity.ok(updatedSlideShow);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

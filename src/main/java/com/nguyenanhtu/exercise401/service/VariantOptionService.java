@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.VariantOptionRequest;
 import com.nguyenanhtu.exercise401.entity.VariantOption;
 import java.util.List;
 import java.util.Optional;
@@ -10,11 +11,11 @@ public interface VariantOptionService {
     
     Optional<VariantOption> getVariantOptionById(UUID id);
     
-    List<VariantOption> getVariantOptionsByProductId(UUID productId);
+    List<VariantOption> getVariantOptionsByVariantId(UUID variantId);
+
+    VariantOption addVariantOption(VariantOptionRequest request);
     
-    VariantOption addVariantOption(VariantOption variantOption);
-    
-    VariantOption updateVariantOption(VariantOption variantOption);
+    VariantOption updateVariantOption(UUID id, VariantOptionRequest request);
     
     void deleteVariantOption(UUID id);
 }

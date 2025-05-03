@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.CardItemRequest;
 import com.nguyenanhtu.exercise401.entity.CardItem;
 import com.nguyenanhtu.exercise401.service.CardItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class CardItemController {
     }
 
     @PostMapping
-    public ResponseEntity<CardItem> addCardItem(@RequestBody CardItem cardItem) {
-        CardItem createdCardItem = cardItemService.addCardItem(cardItem);
+    public ResponseEntity<CardItem> addCardItem(@RequestBody CardItemRequest cardItemRequest) {
+        CardItem createdCardItem = cardItemService.addCardItem(cardItemRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCardItem);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CardItem> updateCardItem(@PathVariable UUID id, @RequestBody CardItem cardItem) {
-        cardItem.setId(id);
-        CardItem updatedCardItem = cardItemService.updateCardItem(cardItem);
-        return ResponseEntity.ok(updatedCardItem);
+    public ResponseEntity<CardItem> updateCardItem(@PathVariable UUID id, @RequestBody CardItemRequest cardItemRequest) {
+        try {
+            CardItem updatedCardItem = cardItemService.updateCardItem(id, cardItemRequest);
+            return ResponseEntity.ok(updatedCardItem);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

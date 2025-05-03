@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.GalleryRequest;
 import com.nguyenanhtu.exercise401.entity.Gallery;
 import com.nguyenanhtu.exercise401.service.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class GalleryController {
     }
 
     @PostMapping
-    public ResponseEntity<Gallery> addGallery(@RequestBody Gallery gallery) {
-        Gallery createdGallery = galleryService.addGallery(gallery);
+    public ResponseEntity<Gallery> addGallery(@RequestBody GalleryRequest galleryRequest) {
+        Gallery createdGallery = galleryService.addGallery(galleryRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdGallery);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Gallery> updateGallery(@PathVariable UUID id, @RequestBody Gallery gallery) {
-        gallery.setId(id);
-        Gallery updatedGallery = galleryService.updateGallery(gallery);
-        return ResponseEntity.ok(updatedGallery);
+    public ResponseEntity<Gallery> updateGallery(@PathVariable UUID id, @RequestBody GalleryRequest galleryRequest) {
+        try {
+            Gallery updatedGallery = galleryService.updateGallery(id, galleryRequest);
+            return ResponseEntity.ok(updatedGallery);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

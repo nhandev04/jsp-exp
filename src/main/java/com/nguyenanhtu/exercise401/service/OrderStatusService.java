@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.OrderStatusRequest;
 import com.nguyenanhtu.exercise401.entity.OrderStatus;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface OrderStatusService {
     Optional<OrderStatus> getOrderStatusById(UUID id);
     
     Optional<OrderStatus> getOrderStatusByName(String statusName);
+
+    OrderStatus addOrderStatus(OrderStatusRequest request);
     
-    OrderStatus addOrderStatus(OrderStatus orderStatus);
-    
-    OrderStatus updateOrderStatus(OrderStatus orderStatus);
+    OrderStatus updateOrderStatus(UUID id, OrderStatusRequest request);
     
     void deleteOrderStatus(UUID id);
 }

@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductAttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.ProductAttributeValue;
 import com.nguyenanhtu.exercise401.service.ProductAttributeValueService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,16 +50,19 @@ public class ProductAttributeValueController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductAttributeValue> addProductAttributeValue(@RequestBody ProductAttributeValue productAttributeValue) {
-        ProductAttributeValue createdProductAttributeValue = productAttributeValueService.addProductAttributeValue(productAttributeValue);
+    public ResponseEntity<ProductAttributeValue> addProductAttributeValue(@RequestBody ProductAttributeValueRequest productAttributeValueRequest) {
+        ProductAttributeValue createdProductAttributeValue = productAttributeValueService.addProductAttributeValue(productAttributeValueRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductAttributeValue);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductAttributeValue> updateProductAttributeValue(@PathVariable UUID id, @RequestBody ProductAttributeValue productAttributeValue) {
-        productAttributeValue.setId(id);
-        ProductAttributeValue updatedProductAttributeValue = productAttributeValueService.updateProductAttributeValue(productAttributeValue);
-        return ResponseEntity.ok(updatedProductAttributeValue);
+    public ResponseEntity<ProductAttributeValue> updateProductAttributeValue(@PathVariable UUID id, @RequestBody ProductAttributeValueRequest productAttributeValueRequest) {
+        try {
+            ProductAttributeValue updatedProductAttributeValue = productAttributeValueService.updateProductAttributeValue(id, productAttributeValueRequest);
+            return ResponseEntity.ok(updatedProductAttributeValue);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

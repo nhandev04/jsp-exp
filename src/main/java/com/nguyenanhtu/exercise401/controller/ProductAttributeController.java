@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductAttributeRequest;
 import com.nguyenanhtu.exercise401.entity.ProductAttribute;
 import com.nguyenanhtu.exercise401.service.ProductAttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,16 +44,19 @@ public class ProductAttributeController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductAttribute> addProductAttribute(@RequestBody ProductAttribute productAttribute) {
-        ProductAttribute createdProductAttribute = productAttributeService.addProductAttribute(productAttribute);
+    public ResponseEntity<ProductAttribute> addProductAttribute(@RequestBody ProductAttributeRequest productAttributeRequest) {
+        ProductAttribute createdProductAttribute = productAttributeService.addProductAttribute(productAttributeRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductAttribute);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ProductAttribute> updateProductAttribute(@PathVariable UUID id, @RequestBody ProductAttribute productAttribute) {
-        productAttribute.setId(id);
-        ProductAttribute updatedProductAttribute = productAttributeService.updateProductAttribute(productAttribute);
-        return ResponseEntity.ok(updatedProductAttribute);
+    public ResponseEntity<ProductAttribute> updateProductAttribute(@PathVariable UUID id, @RequestBody ProductAttributeRequest productAttributeRequest) {
+        try {
+            ProductAttribute updatedProductAttribute = productAttributeService.updateProductAttribute(id, productAttributeRequest);
+            return ResponseEntity.ok(updatedProductAttribute);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

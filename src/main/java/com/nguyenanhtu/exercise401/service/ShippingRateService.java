@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ShippingRateRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingRate;
 import java.util.List;
 import java.util.Optional;
@@ -11,10 +12,10 @@ public interface ShippingRateService {
     Optional<ShippingRate> getShippingRateById(UUID id);
     
     List<ShippingRate> getShippingRatesByShippingZoneId(UUID shippingZoneId);
+
+    ShippingRate addShippingRate(ShippingRateRequest request);
     
-    ShippingRate addShippingRate(ShippingRate shippingRate);
-    
-    ShippingRate updateShippingRate(ShippingRate shippingRate);
+    ShippingRate updateShippingRate(UUID id, ShippingRateRequest request);
     
     void deleteShippingRate(UUID id);
 }

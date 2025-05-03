@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
-import com.nguyenanhtu.exercise401.entity.ProductTag.ProductTagId;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -9,15 +9,13 @@ import java.util.UUID;
 public interface ProductTagService {
     List<ProductTag> getAllProductTags();
     
-    Optional<ProductTag> getProductTagById(ProductTagId id);
+    Optional<ProductTag> getProductTagById(UUID productId, UUID tagId);
     
     List<ProductTag> getProductTagsByProductId(UUID productId);
     
     List<ProductTag> getProductTagsByTagId(UUID tagId);
+
+    ProductTag addProductTag(ProductTagRequest request);
     
-    ProductTag addProductTag(ProductTag productTag);
-    
-    ProductTag updateProductTag(ProductTag productTag);
-    
-    void deleteProductTag(ProductTagId id);
+    void deleteProductTag(UUID productId, UUID tagId);
 }

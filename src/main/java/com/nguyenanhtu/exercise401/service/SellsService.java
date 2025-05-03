@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.SellsRequest;
 import com.nguyenanhtu.exercise401.entity.Sells;
 import java.util.List;
 import java.util.Optional;
@@ -8,13 +9,13 @@ import java.util.UUID;
 public interface SellsService {
     List<Sells> getAllSells();
     
-    Optional<Sells> getSellsById(UUID id);
+    Optional<Sells> getSellById(UUID id);
     
-    Optional<Sells> getSellsByProductId(UUID productId);
+    List<Sells> getSellsByProductId(UUID productId);
+
+    Sells addSell(SellsRequest request);
     
-    Sells addSells(Sells sells);
+    Sells updateSell(UUID id, SellsRequest request);
     
-    Sells updateSells(Sells sells);
-    
-    void deleteSells(UUID id);
+    void deleteSell(UUID id);
 }

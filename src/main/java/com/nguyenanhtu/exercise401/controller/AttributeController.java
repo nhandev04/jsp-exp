@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.AttributeRequest;
 import com.nguyenanhtu.exercise401.entity.Attribute;
 import com.nguyenanhtu.exercise401.service.AttributeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,19 @@ public class AttributeController {
     }
 
     @PostMapping
-    public ResponseEntity<Attribute> addAttribute(@RequestBody Attribute attribute) {
-        Attribute createdAttribute = attributeService.addAttribute(attribute);
+    public ResponseEntity<Attribute> addAttribute(@RequestBody AttributeRequest attributeRequest) {
+        Attribute createdAttribute = attributeService.addAttribute(attributeRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAttribute);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Attribute> updateAttribute(@PathVariable UUID id, @RequestBody Attribute attribute) {
-        attribute.setId(id);
-        Attribute updatedAttribute = attributeService.updateAttribute(attribute);
-        return ResponseEntity.ok(updatedAttribute);
+    public ResponseEntity<Attribute> updateAttribute(@PathVariable UUID id, @RequestBody AttributeRequest attributeRequest) {
+        try {
+            Attribute updatedAttribute = attributeService.updateAttribute(id, attributeRequest);
+            return ResponseEntity.ok(updatedAttribute);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")

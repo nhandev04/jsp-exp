@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.dto.ProductSuplierRequest;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier.ProductSuplierId;
 import java.util.List;
@@ -15,9 +16,9 @@ public interface ProductSuplierService {
     
     List<ProductSuplier> getProductSupliersBySupplierId(UUID supplierId);
     
-    ProductSuplier addProductSuplier(ProductSuplier productSuplier);
+    ProductSuplier addProductSuplier(ProductSuplierRequest request);
     
-    ProductSuplier updateProductSuplier(ProductSuplier productSuplier);
+    ProductSuplier updateProductSuplier(ProductSuplierId id, ProductSuplierRequest request);
     
     void deleteProductSuplier(ProductSuplierId id);
 }

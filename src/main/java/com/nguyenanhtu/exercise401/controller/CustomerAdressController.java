@@ -1,5 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
+import com.nguyenanhtu.exercise401.controller.dto.CustomerAdressRequest;
 import com.nguyenanhtu.exercise401.entity.CustomerAdress;
 import com.nguyenanhtu.exercise401.service.CustomerAdressService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,16 +38,19 @@ public class CustomerAdressController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomerAdress> addCustomerAddress(@RequestBody CustomerAdress customerAddress) {
-        CustomerAdress createdAddress = customerAdressService.addCustomerAddress(customerAddress);
+    public ResponseEntity<CustomerAdress> addCustomerAddress(@RequestBody CustomerAdressRequest customerAdressRequest) {
+        CustomerAdress createdAddress = customerAdressService.addCustomerAddress(customerAdressRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdAddress);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerAdress> updateCustomerAddress(@PathVariable UUID id, @RequestBody CustomerAdress customerAddress) {
-        customerAddress.setId(id);
-        CustomerAdress updatedAddress = customerAdressService.updateCustomerAddress(customerAddress);
-        return ResponseEntity.ok(updatedAddress);
+    public ResponseEntity<CustomerAdress> updateCustomerAddress(@PathVariable UUID id, @RequestBody CustomerAdressRequest customerAdressRequest) {
+        try {
+            CustomerAdress updatedAddress = customerAdressService.updateCustomerAddress(id, customerAdressRequest);
+            return ResponseEntity.ok(updatedAddress);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
