@@ -22,8 +22,6 @@ import java.util.UUID;
 public class ProductTagServiceImpl implements ProductTagService {
 
     private final ProductTagRepository productTagRepository;
-    private final ProductRepository productRepository;
-    private final TagRepository tagRepository;
 
     @Override
     public List<ProductTag> getAllProductTags() {
