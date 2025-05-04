@@ -24,4 +24,12 @@ public class Variants {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "variant_option_id", referencedColumnName = "id", nullable = false)
     private VariantOption variantOptionRef;
+
+    private String sku;
+    private String barcode;
+    private String image;
+    private Double price;
+    private Double comparePrice;
+    private Double costPrice;
+    private Integer inventory;
 }

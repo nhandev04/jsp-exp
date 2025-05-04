@@ -18,4 +18,12 @@ public class SlideShowRequest {
     private String styles;
     private UUID createdById;
     private UUID updatedById;
+
+    public UUID getCreatedBy() {
+        return createdById;
+    }
+
+    public UUID getUpdatedBy() {
+        return updatedById;
+    }
 }

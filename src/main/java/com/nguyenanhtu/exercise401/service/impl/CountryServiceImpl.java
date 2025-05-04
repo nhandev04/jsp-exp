@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -24,7 +25,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Optional<Country> getCountryById(Long id) {
-        return countryRepository.findById(id);
+        return countryRepository.findById(UUID.fromString(id.toString()));
     }
 
     @Override
@@ -35,7 +36,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country updateCountry(Long id, CountryRequest request) {
-        Country country = countryRepository.findById(id)
+        Country country = countryRepository.findById(UUID.fromString(id.toString()))
                 .orElseThrow(() -> new RuntimeException("Country not found with id: " + id));
         
         return saveCountry(country, request);
@@ -43,13 +44,13 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public void deleteCountry(Long id) {
-        countryRepository.deleteById(id);
+        countryRepository.deleteById(UUID.fromString(id.toString()));
     }
     
     private Country saveCountry(Country country, CountryRequest request) {
         // Set basic properties
         country.setName(request.getName());
-        country.setIso2(request.getIso2());
+        country.setIso(request.getName());  // Using name as ISO code
         country.setIso3(request.getIso3());
         country.setNumCode(request.getNumCode());
         country.setPhoneCode(request.getPhoneCode());

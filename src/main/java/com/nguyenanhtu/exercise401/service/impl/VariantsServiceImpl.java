@@ -57,13 +57,13 @@ public class VariantsServiceImpl implements VariantsService {
     
     private Variants saveVariant(Variants variant, VariantsRequest request) {
         // Set basic properties
-        variant.setSku(request.getSku());
-        variant.setBarcode(request.getBarcode());
-        variant.setImage(request.getImage());
-        variant.setPrice(request.getPrice());
-        variant.setComparePrice(request.getComparePrice());
-        variant.setCostPrice(request.getCostPrice());
-        variant.setInventory(request.getInventory());
+        variant.setSku(request.getVariantSku());
+        variant.setBarcode(request.getVariantBarcode());
+        variant.setImage(request.getVariantImage());
+        variant.setPrice(request.getVariantPrice());
+        variant.setComparePrice(request.getVariantComparePrice());
+        variant.setCostPrice(request.getVariantCostPrice());
+        variant.setInventory(request.getVariantInventory());
         
         // Set product if provided
         if (request.getProductId() != null) {

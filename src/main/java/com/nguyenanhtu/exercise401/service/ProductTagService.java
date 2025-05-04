@@ -17,5 +17,7 @@ public interface ProductTagService {
 
     ProductTag addProductTag(ProductTagRequest request);
     
+    ProductTag updateProductTag(ProductTagRequest request);
+    
     void deleteProductTag(UUID productId, UUID tagId);
 }

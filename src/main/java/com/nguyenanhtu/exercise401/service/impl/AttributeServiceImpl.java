@@ -55,16 +55,16 @@ public class AttributeServiceImpl implements AttributeService {
         attribute.setAttributeName(request.getAttributeName());
         
         // Set createdBy if provided and this is a new attribute
-        if (request.getCreatedBy() != null && attribute.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+        if (request.getCreatedById() != null && attribute.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
             attribute.setCreatedBy(createdByAccount);
         }
         
         // Set updatedBy if provided
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+        if (request.getUpdatedById() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
             attribute.setUpdatedBy(updatedByAccount);
         }
         

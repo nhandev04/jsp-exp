@@ -58,9 +58,10 @@ public class NotificationServiceImpl implements NotificationService {
     private Notification saveNotification(Notification notification, NotificationRequest request) {
         // Set basic properties
         notification.setTitle(request.getTitle());
-        notification.setMessage(request.getMessage());
-        notification.setType(request.getType());
-        notification.setIsRead(request.getIsRead());
+        notification.setContent(request.getContent());
+        notification.setSeen(request.getSeen());
+        notification.setReceiveTime(request.getReceiveTime());
+        notification.setNotificationExpiryDate(request.getNotificationExpiryDate());
         
         // Set account if provided
         if (request.getAccountId() != null) {

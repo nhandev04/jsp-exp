@@ -56,16 +56,16 @@ public class TagServiceImpl implements TagService {
         tag.setIcon(request.getIcon());
         
         // Set createdBy if provided and this is a new tag
-        if (request.getCreatedBy() != null && tag.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+        if (request.getCreatedById() != null && tag.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
             tag.setCreatedBy(createdByAccount);
         }
         
         // Set updatedBy if provided
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+        if (request.getUpdatedById() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
             tag.setUpdatedBy(updatedByAccount);
         }
         

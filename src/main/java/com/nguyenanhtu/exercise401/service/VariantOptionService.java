@@ -13,6 +13,8 @@ public interface VariantOptionService {
     
     List<VariantOption> getVariantOptionsByVariantId(UUID variantId);
 
+    List<VariantOption> getVariantOptionsByProductId(UUID productId);
+
     VariantOption addVariantOption(VariantOptionRequest request);
     
     VariantOption updateVariantOption(UUID id, VariantOptionRequest request);

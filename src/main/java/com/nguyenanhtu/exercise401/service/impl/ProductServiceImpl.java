@@ -66,22 +66,27 @@ public class ProductServiceImpl implements ProductService {
         product.setQuantity(request.getQuantity());
         product.setShortDescription(request.getShortDescription());
         product.setProductDescription(request.getProductDescription());
-        product.setProductType(request.getProductType());
+        
+        // Convert String to ProductType enum
+        if (request.getProductType() != null) {
+            product.setProductType(Product.ProductType.valueOf(request.getProductType()));
+        }
+        
         product.setPublished(request.getPublished());
         product.setDisableOutOfStock(request.getDisableOutOfStock());
         product.setNote(request.getNote());
         
         // Set createdBy if provided and this is a new product
-        if (request.getCreatedBy() != null && product.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+        if (request.getCreatedById() != null && product.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
             product.setCreatedBy(createdByAccount);
         }
         
         // Set updatedBy if provided
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+        if (request.getUpdatedById() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
             product.setUpdatedBy(updatedByAccount);
         }
         

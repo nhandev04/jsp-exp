@@ -58,7 +58,7 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setEmail(request.getEmail());
-        customer.setPasswordHash(request.getPasswordHash());
+        customer.setPasswordHash(request.getPassword());
         customer.setActive(request.getActive());
         
         // Set registration date for new customers

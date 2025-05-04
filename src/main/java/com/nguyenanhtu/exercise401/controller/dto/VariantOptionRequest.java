@@ -16,4 +16,16 @@ public class VariantOptionRequest {
     private Integer quantity;
     private String sku;
     private Boolean active;
+
+    public String getVariantOptionName() {
+        return this.title;
+    }
+
+    public String getVariantOptionValue() {
+        return this.sku;
+    }
+
+    public UUID getVariantOptionId() {
+        return this.id;
+    }
 }

@@ -58,13 +58,13 @@ public class ProductShippingInfoServiceImpl implements ProductShippingInfoServic
     private ProductShippingInfo saveProductShippingInfo(ProductShippingInfo productShippingInfo, ProductShippingInfoRequest request) {
         // Set basic properties
         productShippingInfo.setWeight(request.getWeight());
-        productShippingInfo.setWeightUnit(request.getWeightUnit());
+        productShippingInfo.setWeightUnit(ProductShippingInfo.WeightUnit.valueOf(request.getWeightUnit()));
         productShippingInfo.setVolume(request.getVolume());
-        productShippingInfo.setVolumeUnit(request.getVolumeUnit());
+        productShippingInfo.setVolumeUnit(ProductShippingInfo.VolumeUnit.valueOf(request.getVolumeUnit()));
         productShippingInfo.setDimensionWidth(request.getDimensionWidth());
         productShippingInfo.setDimensionHeight(request.getDimensionHeight());
         productShippingInfo.setDimensionDepth(request.getDimensionDepth());
-        productShippingInfo.setDimensionUnit(request.getDimensionUnit());
+        productShippingInfo.setDimensionUnit(ProductShippingInfo.DimensionUnit.valueOf(request.getDimensionUnit()));
         
         // Set product if provided
         if (request.getProductId() != null) {

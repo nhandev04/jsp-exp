@@ -13,4 +13,14 @@ public class ShippingRateRequest {
     private BigDecimal maxValue;
     private Boolean noMax;
     private BigDecimal price;
+    private String name;
+    private String description;
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

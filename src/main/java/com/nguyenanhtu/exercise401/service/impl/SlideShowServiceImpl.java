@@ -63,7 +63,7 @@ public class SlideShowServiceImpl implements SlideShowService {
         slideShow.setClicks(request.getClicks());
         slideShow.setStyles(request.getStyles());
         
-        // Set createdBy if provided and this is a new slideshow
+        // Add a null check for getCreatedBy() to avoid undefined method error
         if (request.getCreatedBy() != null && slideShow.getId() == null) {
             StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
                     .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));

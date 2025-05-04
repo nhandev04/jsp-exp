@@ -25,7 +25,7 @@ public class ProductShippingInfo extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal weight = BigDecimal.ZERO;
 
-    private enum WeightUnit {
+    public static enum WeightUnit {
         KG, G
     }
 
@@ -36,7 +36,7 @@ public class ProductShippingInfo extends BaseEntity {
     @Column(nullable = false)
     private BigDecimal volume = BigDecimal.ZERO;
 
-    private enum VolumeUnit {
+    public static enum VolumeUnit {
         L, ML
     }
 
@@ -53,7 +53,7 @@ public class ProductShippingInfo extends BaseEntity {
     @Column(name = "dimension_depth", nullable = false)
     private BigDecimal dimensionDepth = BigDecimal.ZERO;
 
-    private enum DimensionUnit {
+    public static enum DimensionUnit {
         MM, CM, M, KM
     }
 

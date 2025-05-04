@@ -1,14 +1,15 @@
 package com.nguyenanhtu.exercise401.controller.dto;
 
-import java.time.LocalDateTime;
 import lombok.Data;
+import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Data
 public class OrderRequest {
     private String id;
-    private String couponId;
-    private String customerId;
-    private String orderStatusId;
+    private UUID customerId;
+    private UUID couponId;
+    private UUID orderStatusId;
     private LocalDateTime orderApprovedAt;
     private LocalDateTime orderDeliveredCarrierDate;
     private LocalDateTime orderDeliveredCustomerDate;

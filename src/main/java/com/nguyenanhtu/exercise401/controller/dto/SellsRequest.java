@@ -8,6 +8,7 @@ import lombok.Data;
 public class SellsRequest {
     private UUID id;
     private UUID productId;
+    private UUID staffId;
     private BigDecimal price;
     private Integer quantity;
 }

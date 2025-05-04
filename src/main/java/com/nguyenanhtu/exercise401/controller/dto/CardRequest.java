@@ -1,10 +1,9 @@
 package com.nguyenanhtu.exercise401.controller.dto;
 
-import java.util.UUID;
 import lombok.Data;
+import java.util.UUID;
 
 @Data
 public class CardRequest {
-    private UUID id;
     private UUID customerId;
 }

@@ -2,6 +2,7 @@ package com.nguyenanhtu.exercise401.service.impl;
 
 import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
+import com.nguyenanhtu.exercise401.entity.ProductTag.ProductTagId;
 import com.nguyenanhtu.exercise401.entity.Product;
 import com.nguyenanhtu.exercise401.entity.Tag;
 import com.nguyenanhtu.exercise401.repository.ProductTagRepository;
@@ -31,7 +32,8 @@ public class ProductTagServiceImpl implements ProductTagService {
 
     @Override
     public Optional<ProductTag> getProductTagById(UUID productId, UUID tagId) {
-        return productTagRepository.findByProductIdAndTagId(productId, tagId);
+        ProductTagId id = new ProductTagId(productId, tagId);
+        return productTagRepository.findById(id);
     }
     
     @Override
@@ -46,9 +48,11 @@ public class ProductTagServiceImpl implements ProductTagService {
 
     @Override
     public ProductTag addProductTag(ProductTagRequest request) {
+        // Create composite key
+        ProductTagId id = new ProductTagId(request.getProductId(), request.getTagId());
+        
         // Check if the product tag already exists
-        Optional<ProductTag> existingProductTag = productTagRepository.findByProductIdAndTagId(
-                request.getProductId(), request.getTagId());
+        Optional<ProductTag> existingProductTag = productTagRepository.findById(id);
         
         if (existingProductTag.isPresent()) {
             return existingProductTag.get();
@@ -56,23 +60,29 @@ public class ProductTagServiceImpl implements ProductTagService {
         
         // Create a new product tag
         ProductTag productTag = new ProductTag();
-        
-        // Set product
-        Product product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
-        productTag.setProduct(product);
-        
-        // Set tag
-        Tag tag = tagRepository.findById(request.getTagId())
-                .orElseThrow(() -> new RuntimeException("Tag not found with id: " + request.getTagId()));
-        productTag.setTag(tag);
+        productTag.setId(id);
         
         // Save and return the product tag
         return productTagRepository.save(productTag);
     }
 
     @Override
+    public ProductTag updateProductTag(ProductTagRequest request) {
+        // Create composite key
+        ProductTagId id = new ProductTagId(request.getProductId(), request.getTagId());
+        
+        Optional<ProductTag> existingProductTag = productTagRepository.findById(id);
+        
+        if (!existingProductTag.isPresent()) {
+            throw new RuntimeException("ProductTag not found");
+        }
+        
+        return existingProductTag.get();
+    }
+
+    @Override
     public void deleteProductTag(UUID productId, UUID tagId) {
-        productTagRepository.deleteByProductIdAndTagId(productId, tagId);
+        ProductTagId id = new ProductTagId(productId, tagId);
+        productTagRepository.deleteById(id);
     }
 }

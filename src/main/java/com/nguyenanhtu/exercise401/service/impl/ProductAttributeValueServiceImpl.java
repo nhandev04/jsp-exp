@@ -2,10 +2,10 @@ package com.nguyenanhtu.exercise401.service.impl;
 
 import com.nguyenanhtu.exercise401.controller.dto.ProductAttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.ProductAttributeValue;
-import com.nguyenanhtu.exercise401.entity.Product;
+import com.nguyenanhtu.exercise401.entity.ProductAttribute;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
 import com.nguyenanhtu.exercise401.repository.ProductAttributeValueRepository;
-import com.nguyenanhtu.exercise401.repository.ProductRepository;
+import com.nguyenanhtu.exercise401.repository.ProductAttributeRepository;
 import com.nguyenanhtu.exercise401.repository.AttributeValueRepository;
 import com.nguyenanhtu.exercise401.service.ProductAttributeValueService;
 
@@ -21,7 +21,7 @@ import java.util.UUID;
 public class ProductAttributeValueServiceImpl implements ProductAttributeValueService {
 
     private final ProductAttributeValueRepository productAttributeValueRepository;
-    private final ProductRepository productRepository;
+    private final ProductAttributeRepository productAttributeRepository;
     private final AttributeValueRepository attributeValueRepository;
 
     @Override
@@ -69,11 +69,11 @@ public class ProductAttributeValueServiceImpl implements ProductAttributeValueSe
     }
     
     private ProductAttributeValue saveProductAttributeValue(ProductAttributeValue productAttributeValue, ProductAttributeValueRequest request) {
-        // Set product if provided
-        if (request.getProductId() != null) {
-            Product product = productRepository.findById(request.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
-            productAttributeValue.setProduct(product);
+        // Set product attribute if provided
+        if (request.getProductAttributeId() != null) {
+            ProductAttribute productAttribute = productAttributeRepository.findById(request.getProductAttributeId())
+                    .orElseThrow(() -> new RuntimeException("Product attribute not found with id: " + request.getProductAttributeId()));
+            productAttributeValue.setProductAttribute(productAttribute);
         }
         
         // Set attribute value if provided
@@ -82,9 +82,6 @@ public class ProductAttributeValueServiceImpl implements ProductAttributeValueSe
                     .orElseThrow(() -> new RuntimeException("Attribute value not found with id: " + request.getAttributeValueId()));
             productAttributeValue.setAttributeValue(attributeValue);
         }
-        
-        // Set custom value if provided
-        productAttributeValue.setCustomValue(request.getCustomValue());
         
         // Save and return the product attribute value
         return productAttributeValueRepository.save(productAttributeValue);

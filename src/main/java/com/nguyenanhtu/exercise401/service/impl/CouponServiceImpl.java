@@ -8,6 +8,7 @@ import com.nguyenanhtu.exercise401.service.CouponService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -55,13 +56,12 @@ public class CouponServiceImpl implements CouponService {
     private Coupon saveCoupon(Coupon coupon, CouponRequest request) {
         // Set basic properties
         coupon.setCode(request.getCode());
-        coupon.setType(request.getType());
-        coupon.setValue(request.getValue());
-        coupon.setMinOrderAmount(request.getMinOrderAmount());
-        coupon.setMaxUses(request.getMaxUses());
-        coupon.setUsesCount(request.getUsesCount());
-        coupon.setExpiryDate(request.getExpiryDate());
-        coupon.setActive(request.getActive());
+        coupon.setDiscountType(request.getType());
+        coupon.setDiscountValue(BigDecimal.valueOf(request.getValue()));
+        coupon.setOrderAmountLimit(request.getMinOrderAmount() != null ? BigDecimal.valueOf(request.getMinOrderAmount()) : null);
+        coupon.setMaxUsage(request.getMaxUses() != null ? BigDecimal.valueOf(request.getMaxUses()) : null);
+        coupon.setTimesUsed(request.getUsesCount() != null ? BigDecimal.valueOf(request.getUsesCount()) : BigDecimal.ZERO);
+        coupon.setCouponEndDate(request.getExpiryDate());
         
         // Save and return the coupon
         return couponRepository.save(coupon);

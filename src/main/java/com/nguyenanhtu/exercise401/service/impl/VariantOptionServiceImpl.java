@@ -37,6 +37,11 @@ public class VariantOptionServiceImpl implements VariantOptionService {
     }
 
     @Override
+    public List<VariantOption> getVariantOptionsByProductId(UUID productId) {
+        return variantOptionRepository.findByProductId(productId);
+    }
+
+    @Override
     public VariantOption addVariantOption(VariantOptionRequest request) {
         VariantOption variantOption = new VariantOption();
         return saveVariantOption(variantOption, request);
@@ -57,13 +62,13 @@ public class VariantOptionServiceImpl implements VariantOptionService {
     
     private VariantOption saveVariantOption(VariantOption variantOption, VariantOptionRequest request) {
         // Set basic properties
-        variantOption.setOptionName(request.getOptionName());
-        variantOption.setOptionValue(request.getOptionValue());
+        variantOption.setOptionName(request.getVariantOptionName());
+        variantOption.setOptionValue(request.getVariantOptionValue());
         
         // Set variant if provided
-        if (request.getVariantId() != null) {
-            Variants variant = variantsRepository.findById(request.getVariantId())
-                    .orElseThrow(() -> new RuntimeException("Variant not found with id: " + request.getVariantId()));
+        if (request.getVariantOptionId() != null) {
+            Variants variant = variantsRepository.findById(request.getVariantOptionId())
+                    .orElseThrow(() -> new RuntimeException("Variant not found with id: " + request.getVariantOptionId()));
             variantOption.setVariant(variant);
         }
         

@@ -62,16 +62,16 @@ public class OrderStatusServiceImpl implements OrderStatusService {
         orderStatus.setPrivacy(request.getPrivacy());
         
         // Set createdBy if provided and this is a new order status
-        if (request.getCreatedBy() != null && orderStatus.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+        if (request.getCreatedById() != null && orderStatus.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
             orderStatus.setCreatedBy(createdByAccount);
         }
         
         // Set updatedBy if provided
-        if (request.getUpdatedBy() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+        if (request.getUpdatedById() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
+                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
             orderStatus.setUpdatedBy(updatedByAccount);
         }
         

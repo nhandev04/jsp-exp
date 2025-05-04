@@ -16,4 +16,12 @@ public class SupplierRequest {
     private String note;
     private UUID createdById;
     private UUID updatedById;
+
+    public UUID getCreatedBy() {
+        return createdById;
+    }
+
+    public UUID getUpdatedBy() {
+        return updatedById;
+    }
 }

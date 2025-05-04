@@ -45,7 +45,7 @@ public class Product {
     @Column(name = "product_description", nullable = false)
     private String productDescription;
 
-    private enum ProductType {
+    public enum ProductType {
         SIMPLE,
         VARIABLE
     }

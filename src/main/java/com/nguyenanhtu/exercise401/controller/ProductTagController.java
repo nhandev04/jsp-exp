@@ -2,7 +2,6 @@ package com.nguyenanhtu.exercise401.controller;
 
 import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
-import com.nguyenanhtu.exercise401.entity.ProductTag.ProductTagId;
 import com.nguyenanhtu.exercise401.service.ProductTagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,20 +42,15 @@ public class ProductTagController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProductTag);
     }
 
-    @PutMapping
-    public ResponseEntity<ProductTag> updateProductTag(@RequestBody ProductTagRequest productTagRequest) {
-        try {
-            ProductTag updatedProductTag = productTagService.updateProductTag(productTagRequest);
-            return ResponseEntity.ok(updatedProductTag);
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+    @DeleteMapping("/{productId}/{tagId}")
+    public ResponseEntity<Void> deleteProductTag(@PathVariable UUID productId, @PathVariable UUID tagId) {
+        productTagService.deleteProductTag(productId, tagId);
+        return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping
-    public ResponseEntity<Void> deleteProductTag(@RequestBody ProductTagRequest productTagRequest) {
-        ProductTagId id = new ProductTagId(productTagRequest.getProductId(), productTagRequest.getTagId());
-        productTagService.deleteProductTag(id);
-        return ResponseEntity.noContent().build();
+    @PutMapping
+    public ResponseEntity<ProductTag> updateProductTag(@RequestBody ProductTagRequest productTagRequest) {
+        ProductTag updatedProductTag = productTagService.updateProductTag(productTagRequest);
+        return ResponseEntity.ok(updatedProductTag);
     }
 }
