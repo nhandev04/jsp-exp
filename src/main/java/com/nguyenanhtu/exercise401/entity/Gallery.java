@@ -16,7 +16,7 @@ public class Gallery extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.UUID)
 
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id")

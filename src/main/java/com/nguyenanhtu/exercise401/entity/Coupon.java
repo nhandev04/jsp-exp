@@ -17,7 +17,7 @@ public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @Column(name = "code", nullable = false, length = 50, unique = true)
     private String code;

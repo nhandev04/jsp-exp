@@ -15,7 +15,7 @@ public class Attribute extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", updatable = false, nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @Column(name = "attribute_name", nullable = false, length = 255)
     private String attributeName;

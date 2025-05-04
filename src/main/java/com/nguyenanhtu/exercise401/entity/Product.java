@@ -16,7 +16,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "id", nullable = false)
-    private UUID id = UUID.randomUUID();
+    private UUID id;
 
     @Column(nullable = false, unique = true)
     private String slug;
