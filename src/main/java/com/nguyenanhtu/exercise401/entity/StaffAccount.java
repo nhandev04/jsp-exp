@@ -1,6 +1,10 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -38,6 +42,7 @@ public class StaffAccount {
     private String email;
 
     @Column(name = "password_hash", nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     @Column(nullable = true)
@@ -58,13 +63,14 @@ public class StaffAccount {
     private Date updatedAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true)
     @JsonIgnore
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "updated_by", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
     private StaffAccount updatedBy;
 
     @PrePersist

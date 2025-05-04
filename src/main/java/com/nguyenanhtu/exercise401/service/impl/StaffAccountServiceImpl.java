@@ -9,6 +9,7 @@ import com.nguyenanhtu.exercise401.service.StaffAccountService;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,6 +35,11 @@ public class StaffAccountServiceImpl implements StaffAccountService {
     @Override
     public Optional<StaffAccount> getStaffAccountByEmail(String email) {
         return staffAccountRepository.findByEmail(email);
+    }
+    
+    private String hashPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password); 
     }
 
     @Override
@@ -62,7 +68,13 @@ public class StaffAccountServiceImpl implements StaffAccountService {
         account.setLastName(request.getLastName());
         account.setEmail(request.getEmail());
         account.setPhoneNumber(request.getPhoneNumber());
-        account.setPasswordHash(request.getPasswordHash());
+        
+        // Hash the password if provided
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            String hashedPassword = hashPassword(request.getPassword());
+            account.setPasswordHash(hashedPassword);
+        }
+        
         account.setActive(request.getActive());
         account.setImage(request.getImage());
         account.setPlaceholder(request.getPlaceholder());
@@ -91,7 +103,13 @@ public class StaffAccountServiceImpl implements StaffAccountService {
         account.setLastName(request.getLastName());
         account.setEmail(request.getEmail());
         account.setPhoneNumber(request.getPhoneNumber());
-        account.setPasswordHash(request.getPasswordHash());
+        
+        // Hash the password if provided
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            String hashedPassword = hashPassword(request.getPassword());
+            account.setPasswordHash(hashedPassword);
+        }
+        
         account.setActive(request.getActive());
         account.setImage(request.getImage());
         account.setPlaceholder(request.getPlaceholder());

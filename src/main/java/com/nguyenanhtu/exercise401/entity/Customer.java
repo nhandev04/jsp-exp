@@ -1,6 +1,9 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.time.LocalDateTime;
 import java.util.*;
 import jakarta.persistence.*;
@@ -29,6 +32,7 @@ public class Customer extends BaseEntity {
     private String email;
 
     @Column(name = "password_hash", nullable = false)
+    @JsonIgnore
     private String passwordHash;
 
     @Column(name = "active", nullable = false)

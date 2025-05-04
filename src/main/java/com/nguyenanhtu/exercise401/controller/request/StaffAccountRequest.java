@@ -11,7 +11,7 @@ public class StaffAccountRequest {
     private String lastName;
     private String email;
     private String phoneNumber;
-    private String passwordHash;
+    private String password;
     private Boolean active;
     private String image;
     private String placeholder;

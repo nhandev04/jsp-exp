@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Service
 @RequiredArgsConstructor
@@ -34,9 +35,22 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findByEmail(email);
     }
 
-    @Override
+    private String hashPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password); 
+    }
+
     public Customer addCustomer(CustomerRequest request) {
         Customer customer = new Customer();
+
+        String hashedPassword = hashPassword(request.getPassword());
+    
+        customer.setPasswordHash(hashedPassword);
+        customer.setFirstName(request.getFirstName());
+        customer.setLastName(request.getLastName());
+        customer.setEmail(request.getEmail());
+        customer.setActive(request.getActive());
+    
         return saveCustomer(customer, request);
     }
 
@@ -54,11 +68,16 @@ public class CustomerServiceImpl implements CustomerService {
     }
     
     private Customer saveCustomer(Customer customer, CustomerRequest request) {
-        // Set basic properties
         customer.setFirstName(request.getFirstName());
         customer.setLastName(request.getLastName());
         customer.setEmail(request.getEmail());
-        customer.setPasswordHash(request.getPassword());
+        
+        // Only hash the password if it's provided in the request
+        if (request.getPassword() != null && !request.getPassword().isEmpty()) {
+            String hashedPassword = hashPassword(request.getPassword());
+            customer.setPasswordHash(hashedPassword);
+        }
+        
         customer.setActive(request.getActive());
         
         // Set registration date for new customers
