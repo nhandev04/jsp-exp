@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.NotificationRequest;
+import com.nguyenanhtu.exercise401.controller.request.NotificationRequest;
 import com.nguyenanhtu.exercise401.entity.Notification;
 import java.util.List;
 import java.util.Optional;

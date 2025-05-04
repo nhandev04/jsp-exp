@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
 import java.util.List;
 import java.util.Optional;

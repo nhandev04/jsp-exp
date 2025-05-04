@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.ShippingZoneRequest;
+import com.nguyenanhtu.exercise401.controller.request.ShippingZoneRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingZone;
 import com.nguyenanhtu.exercise401.service.ShippingZoneService;
 import org.springframework.beans.factory.annotation.Autowired;

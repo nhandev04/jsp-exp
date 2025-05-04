@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.CategoryRequest;
+import com.nguyenanhtu.exercise401.controller.request.CategoryRequest;
 import com.nguyenanhtu.exercise401.entity.Category;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.CategoryRepository;

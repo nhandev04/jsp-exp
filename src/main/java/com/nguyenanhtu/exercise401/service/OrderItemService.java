@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.OrderItemRequest;
+import com.nguyenanhtu.exercise401.controller.request.OrderItemRequest;
 import com.nguyenanhtu.exercise401.entity.OrderItem;
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ShippingRateRequest;
+import com.nguyenanhtu.exercise401.controller.request.ShippingRateRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingRate;
 import com.nguyenanhtu.exercise401.entity.ShippingZone;
 import com.nguyenanhtu.exercise401.repository.ShippingRateRepository;

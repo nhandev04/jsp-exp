@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.SupplierRequest;
 import com.nguyenanhtu.exercise401.entity.Supplier;
+import com.nguyenanhtu.exercise401.controller.request.SupplierRequest;
 import com.nguyenanhtu.exercise401.entity.Country;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.SupplierRepository;

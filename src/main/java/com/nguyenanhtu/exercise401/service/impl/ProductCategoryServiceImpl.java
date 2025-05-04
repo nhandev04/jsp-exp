@@ -1,8 +1,8 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductCategoryRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCategory;
 import com.nguyenanhtu.exercise401.entity.Product;
+import com.nguyenanhtu.exercise401.controller.request.ProductCategoryRequest;
 import com.nguyenanhtu.exercise401.entity.Category;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.ProductCategoryRepository;

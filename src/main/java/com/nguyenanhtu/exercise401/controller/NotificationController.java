@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.NotificationRequest;
+import com.nguyenanhtu.exercise401.controller.request.NotificationRequest;
 import com.nguyenanhtu.exercise401.entity.Notification;
 import com.nguyenanhtu.exercise401.service.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;

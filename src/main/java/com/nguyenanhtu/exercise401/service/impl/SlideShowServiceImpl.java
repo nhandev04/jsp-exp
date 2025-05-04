@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.SlideShowRequest;
+import com.nguyenanhtu.exercise401.controller.request.SlideShowRequest;
 import com.nguyenanhtu.exercise401.entity.SlideShow;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.SlideShowRepository;

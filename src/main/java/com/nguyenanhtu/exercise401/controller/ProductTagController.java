@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
 import com.nguyenanhtu.exercise401.service.ProductTagService;
 import org.springframework.beans.factory.annotation.Autowired;

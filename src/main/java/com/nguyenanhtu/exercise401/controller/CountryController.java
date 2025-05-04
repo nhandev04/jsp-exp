@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.CountryRequest;
+import com.nguyenanhtu.exercise401.controller.request.CountryRequest;
 import com.nguyenanhtu.exercise401.entity.Country;
 import com.nguyenanhtu.exercise401.service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;

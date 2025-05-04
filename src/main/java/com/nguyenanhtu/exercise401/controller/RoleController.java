@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.RoleRequest;
+import com.nguyenanhtu.exercise401.controller.request.RoleRequest;
 import com.nguyenanhtu.exercise401.entity.Role;
 import com.nguyenanhtu.exercise401.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;

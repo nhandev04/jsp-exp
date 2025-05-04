@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductCategoryRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductCategoryRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCategory;
 import java.util.List;
 import java.util.Optional;

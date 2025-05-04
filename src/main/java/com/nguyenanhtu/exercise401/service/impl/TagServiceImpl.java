@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.TagRequest;
 import com.nguyenanhtu.exercise401.entity.Tag;
+import com.nguyenanhtu.exercise401.controller.request.TagRequest;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.TagRepository;
 import com.nguyenanhtu.exercise401.repository.StaffAccountRepository;

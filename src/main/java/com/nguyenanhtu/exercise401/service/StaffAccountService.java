@@ -1,7 +1,8 @@
 package com.nguyenanhtu.exercise401.service;
 
+import com.nguyenanhtu.exercise401.controller.request.StaffAccountRequest;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
-import com.nguyenanhtu.exercise401.controller.dto.StaffAccountRequest;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;

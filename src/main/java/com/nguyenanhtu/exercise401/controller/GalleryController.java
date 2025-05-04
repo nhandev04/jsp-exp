@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.GalleryRequest;
+import com.nguyenanhtu.exercise401.controller.request.GalleryRequest;
 import com.nguyenanhtu.exercise401.entity.Gallery;
 import com.nguyenanhtu.exercise401.service.GalleryService;
 import org.springframework.beans.factory.annotation.Autowired;

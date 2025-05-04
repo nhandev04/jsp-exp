@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.CustomerAdressRequest;
 import com.nguyenanhtu.exercise401.entity.CustomerAdress;
+import com.nguyenanhtu.exercise401.controller.request.CustomerAdressRequest;
 import com.nguyenanhtu.exercise401.entity.Customer;
 import com.nguyenanhtu.exercise401.repository.CustomerAdressRepository;
 import com.nguyenanhtu.exercise401.repository.CustomerRepository;

@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductRequest;
 import com.nguyenanhtu.exercise401.entity.Product;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.ProductRepository;

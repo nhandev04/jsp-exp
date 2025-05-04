@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.ProductShippingInfo;
+import com.nguyenanhtu.exercise401.controller.request.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.Product;
 import com.nguyenanhtu.exercise401.repository.ProductShippingInfoRepository;
 import com.nguyenanhtu.exercise401.repository.ProductRepository;

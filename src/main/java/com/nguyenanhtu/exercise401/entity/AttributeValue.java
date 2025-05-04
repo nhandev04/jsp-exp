@@ -1,6 +1,10 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,11 +17,13 @@ import lombok.*;
 public class AttributeValue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "attribute_id", referencedColumnName = "id", nullable = false)
     private Attribute attribute;
 

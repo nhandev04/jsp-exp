@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.AttributeValueRequest;
+import com.nguyenanhtu.exercise401.controller.request.AttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
 import com.nguyenanhtu.exercise401.service.AttributeValueService;
 import org.springframework.beans.factory.annotation.Autowired;

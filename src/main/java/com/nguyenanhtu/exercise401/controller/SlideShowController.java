@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.SlideShowRequest;
+import com.nguyenanhtu.exercise401.controller.request.SlideShowRequest;
 import com.nguyenanhtu.exercise401.entity.SlideShow;
 import com.nguyenanhtu.exercise401.service.SlideShowService;
 import org.springframework.beans.factory.annotation.Autowired;

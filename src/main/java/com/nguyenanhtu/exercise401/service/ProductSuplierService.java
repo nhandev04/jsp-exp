@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductSuplierRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductSuplierRequest;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier;
 import com.nguyenanhtu.exercise401.entity.ProductSuplier.ProductSuplierId;
 import java.util.List;

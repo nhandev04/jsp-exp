@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.VariantOptionRequest;
+import com.nguyenanhtu.exercise401.controller.request.VariantOptionRequest;
 import com.nguyenanhtu.exercise401.entity.VariantOption;
 import java.util.List;
 import java.util.Optional;

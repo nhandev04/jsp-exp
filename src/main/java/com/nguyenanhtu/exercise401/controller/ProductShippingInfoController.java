@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductShippingInfoRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.ProductShippingInfo;
 import com.nguyenanhtu.exercise401.service.ProductShippingInfoService;
 import org.springframework.beans.factory.annotation.Autowired;

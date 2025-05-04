@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.AttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
+import com.nguyenanhtu.exercise401.controller.request.AttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.Attribute;
 import com.nguyenanhtu.exercise401.repository.AttributeValueRepository;
 import com.nguyenanhtu.exercise401.repository.AttributeRepository;

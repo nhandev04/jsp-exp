@@ -1,8 +1,8 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductCouponRequest;
 import com.nguyenanhtu.exercise401.entity.ProductCoupon;
 import com.nguyenanhtu.exercise401.entity.Product;
+import com.nguyenanhtu.exercise401.controller.request.ProductCouponRequest;
 import com.nguyenanhtu.exercise401.entity.Coupon;
 import com.nguyenanhtu.exercise401.repository.ProductCouponRepository;
 import com.nguyenanhtu.exercise401.repository.ProductRepository;

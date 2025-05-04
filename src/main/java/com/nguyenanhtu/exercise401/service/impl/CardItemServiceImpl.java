@@ -1,7 +1,7 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.CardItemRequest;
 import com.nguyenanhtu.exercise401.entity.CardItem;
+import com.nguyenanhtu.exercise401.controller.request.CardItemRequest;
 import com.nguyenanhtu.exercise401.entity.Card;
 import com.nguyenanhtu.exercise401.entity.Product;
 import com.nguyenanhtu.exercise401.repository.CardItemRepository;

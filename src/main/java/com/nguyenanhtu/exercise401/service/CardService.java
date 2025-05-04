@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.CardRequest;
+import com.nguyenanhtu.exercise401.controller.request.CardRequest;
 import com.nguyenanhtu.exercise401.entity.Card;
 import java.util.List;
 import java.util.Optional;

@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.CardRequest;
+import com.nguyenanhtu.exercise401.controller.request.CardRequest;
 import com.nguyenanhtu.exercise401.entity.Card;
 import com.nguyenanhtu.exercise401.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;

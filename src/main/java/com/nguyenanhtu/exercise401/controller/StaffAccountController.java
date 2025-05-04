@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.StaffAccountRequest;
+import com.nguyenanhtu.exercise401.controller.request.StaffAccountRequest;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.service.StaffAccountService;
 import org.springframework.beans.factory.annotation.Autowired;

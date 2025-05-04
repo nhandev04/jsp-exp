@@ -1,8 +1,8 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductAttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.ProductAttributeValue;
 import com.nguyenanhtu.exercise401.entity.ProductAttribute;
+import com.nguyenanhtu.exercise401.controller.request.ProductAttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
 import com.nguyenanhtu.exercise401.repository.ProductAttributeValueRepository;
 import com.nguyenanhtu.exercise401.repository.ProductAttributeRepository;

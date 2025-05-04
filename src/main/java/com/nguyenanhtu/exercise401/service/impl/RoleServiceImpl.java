@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.RoleRequest;
+import com.nguyenanhtu.exercise401.controller.request.RoleRequest;
 import com.nguyenanhtu.exercise401.entity.Role;
 import com.nguyenanhtu.exercise401.repository.RoleRepository;
 import com.nguyenanhtu.exercise401.service.RoleService;

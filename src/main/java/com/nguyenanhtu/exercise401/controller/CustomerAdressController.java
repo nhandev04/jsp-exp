@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.CustomerAdressRequest;
+import com.nguyenanhtu.exercise401.controller.request.CustomerAdressRequest;
 import com.nguyenanhtu.exercise401.entity.CustomerAdress;
 import com.nguyenanhtu.exercise401.service.CustomerAdressService;
 import org.springframework.beans.factory.annotation.Autowired;

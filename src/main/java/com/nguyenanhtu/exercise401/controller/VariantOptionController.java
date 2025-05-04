@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.VariantOptionRequest;
+import com.nguyenanhtu.exercise401.controller.request.VariantOptionRequest;
 import com.nguyenanhtu.exercise401.entity.VariantOption;
 import com.nguyenanhtu.exercise401.service.VariantOptionService;
 import org.springframework.beans.factory.annotation.Autowired;

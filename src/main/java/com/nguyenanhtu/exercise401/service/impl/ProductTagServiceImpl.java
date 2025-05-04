@@ -1,13 +1,9 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductTagRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductTagRequest;
 import com.nguyenanhtu.exercise401.entity.ProductTag;
 import com.nguyenanhtu.exercise401.entity.ProductTag.ProductTagId;
-import com.nguyenanhtu.exercise401.entity.Product;
-import com.nguyenanhtu.exercise401.entity.Tag;
 import com.nguyenanhtu.exercise401.repository.ProductTagRepository;
-import com.nguyenanhtu.exercise401.repository.ProductRepository;
-import com.nguyenanhtu.exercise401.repository.TagRepository;
 import com.nguyenanhtu.exercise401.service.ProductTagService;
 
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.TagRequest;
+import com.nguyenanhtu.exercise401.controller.request.TagRequest;
 import com.nguyenanhtu.exercise401.entity.Tag;
 import java.util.List;
 import java.util.Optional;

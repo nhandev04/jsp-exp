@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.ProductShippingInfoRequest;
+import com.nguyenanhtu.exercise401.controller.request.ProductShippingInfoRequest;
 import com.nguyenanhtu.exercise401.entity.ProductShippingInfo;
 import java.util.List;
 import java.util.Optional;

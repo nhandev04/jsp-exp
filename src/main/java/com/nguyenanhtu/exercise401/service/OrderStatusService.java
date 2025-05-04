@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.OrderStatusRequest;
+import com.nguyenanhtu.exercise401.controller.request.OrderStatusRequest;
 import com.nguyenanhtu.exercise401.entity.OrderStatus;
 import java.util.List;
 import java.util.Optional;

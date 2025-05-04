@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.OrderStatusRequest;
+import com.nguyenanhtu.exercise401.controller.request.OrderStatusRequest;
 import com.nguyenanhtu.exercise401.entity.OrderStatus;
 import com.nguyenanhtu.exercise401.entity.StaffAccount;
 import com.nguyenanhtu.exercise401.repository.OrderStatusRepository;

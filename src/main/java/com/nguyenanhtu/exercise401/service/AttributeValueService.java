@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.AttributeValueRequest;
+import com.nguyenanhtu.exercise401.controller.request.AttributeValueRequest;
 import com.nguyenanhtu.exercise401.entity.AttributeValue;
 import java.util.List;
 import java.util.Optional;

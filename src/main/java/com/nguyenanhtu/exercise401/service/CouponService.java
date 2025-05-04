@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service;
 
-import com.nguyenanhtu.exercise401.controller.dto.CouponRequest;
+import com.nguyenanhtu.exercise401.controller.request.CouponRequest;
 import com.nguyenanhtu.exercise401.entity.Coupon;
 import java.util.List;
 import java.util.Optional;

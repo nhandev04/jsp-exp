@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.controller;
 
-import com.nguyenanhtu.exercise401.controller.dto.CategoryRequest;
+import com.nguyenanhtu.exercise401.controller.request.CategoryRequest;
 import com.nguyenanhtu.exercise401.entity.Category;
 import com.nguyenanhtu.exercise401.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

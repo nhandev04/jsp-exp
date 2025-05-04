@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.service.impl;
 
-import com.nguyenanhtu.exercise401.controller.dto.VariantOptionRequest;
+import com.nguyenanhtu.exercise401.controller.request.VariantOptionRequest;
 import com.nguyenanhtu.exercise401.entity.VariantOption;
 import com.nguyenanhtu.exercise401.entity.Variants;
 import com.nguyenanhtu.exercise401.repository.VariantOptionRepository;
