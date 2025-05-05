@@ -14,14 +14,14 @@ public class SupplierRequest {
     private UUID countryId;
     private String city;
     private String note;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 
     public UUID getCreatedBy() {
-        return createdById;
+        return createdBy;
     }
 
     public UUID getUpdatedBy() {
-        return updatedById;
+        return updatedBy;
     }
 }

@@ -41,7 +41,7 @@ public class AttributeServiceImpl implements AttributeService {
     public Attribute updateAttribute(UUID id, AttributeRequest request) {
         Attribute attribute = attributeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Attribute not found with id: " + id));
-        
+
         return saveAttribute(attribute, request);
     }
 
@@ -49,25 +49,27 @@ public class AttributeServiceImpl implements AttributeService {
     public void deleteAttribute(UUID id) {
         attributeRepository.deleteById(id);
     }
-    
+
     private Attribute saveAttribute(Attribute attribute, AttributeRequest request) {
         // Set basic properties
         attribute.setAttributeName(request.getAttributeName());
-        
+
         // Set createdBy if provided and this is a new attribute
-        if (request.getCreatedById() != null && attribute.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
+        if (request.getCreatedBy() != null && attribute.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             attribute.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
-        if (request.getUpdatedById() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             attribute.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the attribute
         return attributeRepository.save(attribute);
     }

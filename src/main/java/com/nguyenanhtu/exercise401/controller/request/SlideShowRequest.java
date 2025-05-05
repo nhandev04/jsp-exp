@@ -16,14 +16,14 @@ public class SlideShowRequest {
     private Boolean published;
     private Integer clicks;
     private String styles;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 
     public UUID getCreatedBy() {
-        return createdById;
+        return createdBy;
     }
 
     public UUID getUpdatedBy() {
-        return updatedById;
+        return updatedBy;
     }
 }

@@ -11,14 +11,14 @@ public class ShippingZoneRequest {
     private Boolean active;
     private Boolean freeShipping;
     private String rateType;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 
     public UUID getCreatedBy() {
-        return createdById;
+        return createdBy;
     }
 
     public UUID getUpdatedBy() {
-        return updatedById;
+        return updatedBy;
     }
 }

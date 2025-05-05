@@ -32,11 +32,11 @@ public class Attribute extends BaseEntity {
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private StaffAccount updatedBy;
 
-    public String getCreatedById() {
+    public String getCreatedBy() {
         return createdBy != null ? createdBy.getId().toString() : null;
     }
 
-    public String getUpdatedById() {
+    public String getUpdatedBy() {
         return updatedBy != null ? updatedBy.getId().toString() : null;
     }
 }

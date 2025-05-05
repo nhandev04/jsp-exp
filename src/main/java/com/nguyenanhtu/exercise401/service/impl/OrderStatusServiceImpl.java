@@ -46,7 +46,7 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     public OrderStatus updateOrderStatus(UUID id, OrderStatusRequest request) {
         OrderStatus orderStatus = orderStatusRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order status not found with id: " + id));
-        
+
         return saveOrderStatus(orderStatus, request);
     }
 
@@ -54,27 +54,29 @@ public class OrderStatusServiceImpl implements OrderStatusService {
     public void deleteOrderStatus(UUID id) {
         orderStatusRepository.deleteById(id);
     }
-    
+
     private OrderStatus saveOrderStatus(OrderStatus orderStatus, OrderStatusRequest request) {
         // Set basic properties
         orderStatus.setStatusName(request.getStatusName());
         orderStatus.setColor(request.getColor());
         orderStatus.setPrivacy(request.getPrivacy());
-        
+
         // Set createdBy if provided and this is a new order status
-        if (request.getCreatedById() != null && orderStatus.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
+        if (request.getCreatedBy() != null && orderStatus.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             orderStatus.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
-        if (request.getUpdatedById() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             orderStatus.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the order status
         return orderStatusRepository.save(orderStatus);
     }

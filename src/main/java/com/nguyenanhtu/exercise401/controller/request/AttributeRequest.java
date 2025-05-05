@@ -7,6 +7,6 @@ import lombok.Data;
 public class AttributeRequest {
     private UUID id;
     private String attributeName;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 }

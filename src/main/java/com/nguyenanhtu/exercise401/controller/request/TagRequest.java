@@ -8,6 +8,6 @@ public class TagRequest {
     private UUID id;
     private String tagName;
     private String icon;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 }

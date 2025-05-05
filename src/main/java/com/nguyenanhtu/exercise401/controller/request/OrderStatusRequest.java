@@ -9,6 +9,6 @@ public class OrderStatusRequest {
     private String statusName;
     private String color;
     private String privacy;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 }
