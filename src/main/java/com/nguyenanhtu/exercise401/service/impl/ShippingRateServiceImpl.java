@@ -3,7 +3,6 @@ package com.nguyenanhtu.exercise401.service.impl;
 import com.nguyenanhtu.exercise401.controller.request.ShippingRateRequest;
 import com.nguyenanhtu.exercise401.entity.ShippingRate;
 import com.nguyenanhtu.exercise401.entity.ShippingZone;
-import com.nguyenanhtu.exercise401.entity.ProductShippingInfo.WeightUnit;
 import com.nguyenanhtu.exercise401.repository.ShippingRateRepository;
 import com.nguyenanhtu.exercise401.repository.ShippingZoneRepository;
 import com.nguyenanhtu.exercise401.service.ShippingRateService;
@@ -11,7 +10,6 @@ import com.nguyenanhtu.exercise401.service.ShippingRateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
