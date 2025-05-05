@@ -41,7 +41,7 @@ public class ShippingZoneServiceImpl implements ShippingZoneService {
     public ShippingZone updateShippingZone(UUID id, ShippingZoneRequest request) {
         ShippingZone shippingZone = shippingZoneRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Shipping zone not found with id: " + id));
-        
+
         return saveShippingZone(shippingZone, request);
     }
 
@@ -49,29 +49,41 @@ public class ShippingZoneServiceImpl implements ShippingZoneService {
     public void deleteShippingZone(UUID id) {
         shippingZoneRepository.deleteById(id);
     }
-    
+
     private ShippingZone saveShippingZone(ShippingZone shippingZone, ShippingZoneRequest request) {
         // Set basic properties
-        shippingZone.setName(request.getName());
-        shippingZone.setDisplayName(request.getDisplayName());
-        shippingZone.setActive(request.getActive());
-        shippingZone.setFreeShipping(request.getFreeShipping());
-        shippingZone.setRateType(request.getRateType());
-        
+        if (request.getName() != null) {
+            shippingZone.setName(request.getName());
+        }
+        if (request.getDisplayName() != null) {
+            shippingZone.setDisplayName(request.getDisplayName());
+        }
+        if (request.getActive() != null) {
+            shippingZone.setActive(request.getActive());
+        }
+        if (request.getFreeShipping() != null) {
+            shippingZone.setFreeShipping(request.getFreeShipping());
+        }
+        if (request.getRateType() != null) {
+            shippingZone.setRateType(request.getRateType());
+        }
+
         // Set createdBy if provided and this is a new shipping zone
         if (request.getCreatedBy() != null && shippingZone.getId() == null) {
             StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             shippingZone.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
         if (request.getUpdatedBy() != null) {
             StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             shippingZone.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the shipping zone
         return shippingZoneRepository.save(shippingZone);
     }
