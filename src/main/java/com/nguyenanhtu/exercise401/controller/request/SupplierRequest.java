@@ -11,7 +11,7 @@ public class SupplierRequest {
     private String phoneNumber;
     private String addressLine1;
     private String addressLine2;
-    private UUID countryId;
+    private Long countryId;
     private String city;
     private String note;
     private UUID createdBy;

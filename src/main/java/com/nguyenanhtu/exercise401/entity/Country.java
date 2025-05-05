@@ -15,7 +15,7 @@ public class Country {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "country_seq_generator")
     @SequenceGenerator(name = "country_seq_generator", sequenceName = "countries_seq", allocationSize = 1)
     @Column(nullable = false)
-    private Long id = 0L;
+    private Long id;
 
     @Column(name = "iso", nullable = false, length = 2)
     private String iso;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -25,7 +24,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Optional<Country> getCountryById(Long id) {
-        return countryRepository.findById(UUID.fromString(id.toString()));
+        return countryRepository.findById(id);
     }
 
     @Override
@@ -36,25 +35,44 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public Country updateCountry(Long id, CountryRequest request) {
-        Country country = countryRepository.findById(UUID.fromString(id.toString()))
+        Country country = countryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Country not found with id: " + id));
-        
+
         return saveCountry(country, request);
     }
 
     @Override
     public void deleteCountry(Long id) {
-        countryRepository.deleteById(UUID.fromString(id.toString()));
+        countryRepository.deleteById(id);
     }
-    
+
     private Country saveCountry(Country country, CountryRequest request) {
         // Set basic properties
-        country.setName(request.getName());
-        country.setIso(request.getName());  // Using name as ISO code
-        country.setIso3(request.getIso3());
-        country.setNumCode(request.getNumCode());
-        country.setPhoneCode(request.getPhoneCode());
-        
+
+        if (request.getUpperName() != null) {
+            country.setUpperName(request.getUpperName());
+        }
+
+        if (request.getName() != null) {
+            country.setName(request.getName());
+        }
+
+        if (request.getIso() != null) { // Using Iso as ISO code
+            country.setIso(request.getIso());
+        }
+
+        if (request.getIso3() != null) {
+            country.setIso3(request.getIso3());
+        }
+
+        if (request.getNumCode() != null) {
+            country.setNumCode(request.getNumCode());
+        }
+
+        if (request.getPhoneCode() != null) {
+            country.setPhoneCode(request.getPhoneCode());
+        }
+
         // Save and return the country
         return countryRepository.save(country);
     }
