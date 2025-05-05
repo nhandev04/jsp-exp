@@ -49,4 +49,17 @@ public class Supplier extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private StaffAccount updatedBy;
+
+    public String getCountry() {
+        return country.getId() != null ? country.getId().toString() : null;
+    }
+
+    public String getCreatedBy() {
+        return createdBy.getId() != null ? createdBy.getId().toString() : null;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy.getId() != null ? updatedBy.getId().toString() : null;
+    }
+
 }

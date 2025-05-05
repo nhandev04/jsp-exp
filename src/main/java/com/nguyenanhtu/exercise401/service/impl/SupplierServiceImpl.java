@@ -44,7 +44,7 @@ public class SupplierServiceImpl implements SupplierService {
     public Supplier updateSupplier(UUID id, SupplierRequest request) {
         Supplier supplier = supplierRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Supplier not found with id: " + id));
-        
+
         return saveSupplier(supplier, request);
     }
 
@@ -52,38 +52,53 @@ public class SupplierServiceImpl implements SupplierService {
     public void deleteSupplier(UUID id) {
         supplierRepository.deleteById(id);
     }
-    
+
     private Supplier saveSupplier(Supplier supplier, SupplierRequest request) {
         // Set basic properties
-        supplier.setSupplierName(request.getSupplierName());
-        supplier.setCompany(request.getCompany());
-        supplier.setPhoneNumber(request.getPhoneNumber());
-        supplier.setAddressLine1(request.getAddressLine1());
-        supplier.setAddressLine2(request.getAddressLine2());
-        supplier.setCity(request.getCity());
-        supplier.setNote(request.getNote());
-        
+        if (request.getSupplierName() != null) {
+            supplier.setSupplierName(request.getSupplierName());
+        }
+        if (request.getCompany() != null) {
+            supplier.setCompany(request.getCompany());
+        }
+        if (request.getPhoneNumber() != null) {
+            supplier.setPhoneNumber(request.getPhoneNumber());
+        }
+        if (request.getAddressLine1() != null) {
+            supplier.setAddressLine1(request.getAddressLine1());
+        }
+        if (request.getAddressLine2() != null) {
+            supplier.setAddressLine2(request.getAddressLine2());
+        }
+        if (request.getCity() != null) {
+            supplier.setCity(request.getCity());
+        }
+        if (request.getNote() != null) {
+            supplier.setNote(request.getNote());
+        }
         // Set country if provided
         if (request.getCountryId() != null) {
             Country country = countryRepository.findById(request.getCountryId())
                     .orElseThrow(() -> new RuntimeException("Country not found with id: " + request.getCountryId()));
             supplier.setCountry(country);
         }
-        
+
         // Set createdBy if provided and this is a new supplier
         if (request.getCreatedBy() != null && supplier.getId() == null) {
             StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             supplier.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
         if (request.getUpdatedBy() != null) {
             StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             supplier.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the supplier
         return supplierRepository.save(supplier);
     }

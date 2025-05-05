@@ -33,7 +33,7 @@ public class CardItemServiceImpl implements CardItemService {
     public Optional<CardItem> getCardItemById(UUID id) {
         return cardItemRepository.findById(id);
     }
-    
+
     @Override
     public List<CardItem> getCardItemsByCardId(UUID cardId) {
         return cardItemRepository.findByCardId(cardId);
@@ -49,7 +49,7 @@ public class CardItemServiceImpl implements CardItemService {
     public CardItem updateCardItem(UUID id, CardItemRequest request) {
         CardItem cardItem = cardItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Card item not found with id: " + id));
-        
+
         return saveCardItem(cardItem, request);
     }
 
@@ -57,25 +57,27 @@ public class CardItemServiceImpl implements CardItemService {
     public void deleteCardItem(UUID id) {
         cardItemRepository.deleteById(id);
     }
-    
+
     private CardItem saveCardItem(CardItem cardItem, CardItemRequest request) {
         // Set basic properties
-        cardItem.setQuantity(request.getQuantity());
-        
+        if (request.getQuantity() != null) {
+            cardItem.setQuantity(request.getQuantity());
+        }
+
         // Set card if provided
         if (request.getCardId() != null) {
             Card card = cardRepository.findById(request.getCardId())
                     .orElseThrow(() -> new RuntimeException("Card not found with id: " + request.getCardId()));
             cardItem.setCard(card);
         }
-        
+
         // Set product if provided
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
             cardItem.setProduct(product);
         }
-        
+
         // Save and return the card item
         return cardItemRepository.save(cardItem);
     }

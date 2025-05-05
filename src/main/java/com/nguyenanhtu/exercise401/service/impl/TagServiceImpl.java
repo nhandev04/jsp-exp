@@ -52,8 +52,12 @@ public class TagServiceImpl implements TagService {
 
     private Tag saveTag(Tag tag, TagRequest request) {
         // Set basic properties
-        tag.setTagName(request.getTagName());
-        tag.setIcon(request.getIcon());
+        if (request.getTagName() != null) {
+            tag.setTagName(request.getTagName());
+        }
+        if (request.getIcon() != null) {
+            tag.setIcon(request.getIcon());
+        }
 
         // Set createdBy if provided and this is a new tag
         if (request.getCreatedBy() != null && tag.getId() == null) {
