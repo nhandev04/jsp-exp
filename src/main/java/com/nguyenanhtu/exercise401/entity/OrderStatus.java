@@ -33,4 +33,13 @@ public class OrderStatus extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private StaffAccount updatedBy;
+
+    public String getCreatedBy() {
+        return createdBy != null ? createdBy.getId().toString() : null;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy != null ? updatedBy.getId().toString() : null;
+    }
+
 }

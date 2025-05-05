@@ -57,9 +57,15 @@ public class OrderStatusServiceImpl implements OrderStatusService {
 
     private OrderStatus saveOrderStatus(OrderStatus orderStatus, OrderStatusRequest request) {
         // Set basic properties
-        orderStatus.setStatusName(request.getStatusName());
-        orderStatus.setColor(request.getColor());
-        orderStatus.setPrivacy(request.getPrivacy());
+        if (request.getStatusName() != null) {
+            orderStatus.setStatusName(request.getStatusName());
+        }
+        if (request.getColor() != null) {
+            orderStatus.setColor(request.getColor());
+        }
+        if (request.getPrivacy() != null) {
+            orderStatus.setPrivacy(request.getPrivacy());
+        }
 
         // Set createdBy if provided and this is a new order status
         if (request.getCreatedBy() != null && orderStatus.getId() == null) {
