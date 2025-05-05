@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 public class ProductCategoryRequest {
     private UUID id;
-    private UUID productId;
-    private UUID categoryId;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID product;
+    private UUID category;
+    private UUID createdBy;
+    private UUID updatedBy;
 }

@@ -46,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
     public Product updateProduct(UUID id, ProductRequest request) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product not found with id: " + id));
-        
+
         return saveProduct(product, request);
     }
 
@@ -54,42 +54,68 @@ public class ProductServiceImpl implements ProductService {
     public void deleteProduct(UUID id) {
         productRepository.deleteById(id);
     }
-    
+
     private Product saveProduct(Product product, ProductRequest request) {
         // Set basic properties
-        product.setSlug(request.getSlug());
-        product.setProductName(request.getProductName());
-        product.setSku(request.getSku());
-        product.setSalePrice(request.getSalePrice());
-        product.setComparePrice(request.getComparePrice());
-        product.setBuyingPrice(request.getBuyingPrice());
-        product.setQuantity(request.getQuantity());
-        product.setShortDescription(request.getShortDescription());
-        product.setProductDescription(request.getProductDescription());
-        
+        if (request.getSlug() != null) {
+            product.setSlug(request.getSlug());
+        }
+        if (request.getProductName() != null) {
+            product.setProductName(request.getProductName());
+        }
+        if (request.getSku() != null) {
+            product.setSku(request.getSku());
+        }
+        if (request.getSalePrice() != null) {
+            product.setSalePrice(request.getSalePrice());
+        }
+        if (request.getComparePrice() != null) {
+            product.setComparePrice(request.getComparePrice());
+        }
+        if (request.getBuyingPrice() != null) {
+            product.setBuyingPrice(request.getBuyingPrice());
+        }
+        if (request.getQuantity() != null) {
+            product.setQuantity(request.getQuantity());
+        }
+        if (request.getShortDescription() != null) {
+            product.setShortDescription(request.getShortDescription());
+        }
+        if (request.getProductDescription() != null) {
+            product.setProductDescription(request.getProductDescription());
+        }
+
         // Convert String to ProductType enum
         if (request.getProductType() != null) {
             product.setProductType(Product.ProductType.valueOf(request.getProductType()));
         }
-        
-        product.setPublished(request.getPublished());
-        product.setDisableOutOfStock(request.getDisableOutOfStock());
-        product.setNote(request.getNote());
-        
+
+        if (request.getPublished() != null) {
+            product.setPublished(request.getPublished());
+        }
+        if (request.getDisableOutOfStock() != null) {
+            product.setDisableOutOfStock(request.getDisableOutOfStock());
+        }
+        if (request.getNote() != null) {
+            product.setNote(request.getNote());
+        }
+
         // Set createdBy if provided and this is a new product
-        if (request.getCreatedById() != null && product.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
+        if (request.getCreatedBy() != null && product.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             product.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
-        if (request.getUpdatedById() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             product.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the product
         return productRepository.save(product);
     }

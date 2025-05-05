@@ -36,12 +36,12 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public Optional<ProductCategory> getProductCategoryById(UUID id) {
         return productCategoryRepository.findById(id);
     }
-    
+
     @Override
     public List<ProductCategory> getProductCategoriesByProductId(UUID productId) {
         return productCategoryRepository.findByProductId(productId);
     }
-    
+
     @Override
     public List<ProductCategory> getProductCategoriesByCategoryId(UUID categoryId) {
         return productCategoryRepository.findByCategoryId(categoryId);
@@ -57,7 +57,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public ProductCategory updateProductCategory(UUID id, ProductCategoryRequest request) {
         ProductCategory productCategory = productCategoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product category not found with id: " + id));
-        
+
         return saveProductCategory(productCategory, request);
     }
 
@@ -65,36 +65,38 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public void deleteProductCategory(UUID id) {
         productCategoryRepository.deleteById(id);
     }
-    
+
     private ProductCategory saveProductCategory(ProductCategory productCategory, ProductCategoryRequest request) {
         // Set product if provided
-        if (request.getProductId() != null) {
-            Product product = productRepository.findById(request.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
+        if (request.getProduct() != null) {
+            Product product = productRepository.findById(request.getProduct())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProduct()));
             productCategory.setProduct(product);
         }
-        
+
         // Set category if provided
-        if (request.getCategoryId() != null) {
-            Category category = categoryRepository.findById(request.getCategoryId())
-                    .orElseThrow(() -> new RuntimeException("Category not found with id: " + request.getCategoryId()));
+        if (request.getCategory() != null) {
+            Category category = categoryRepository.findById(request.getCategory())
+                    .orElseThrow(() -> new RuntimeException("Category not found with id: " + request.getCategory()));
             productCategory.setCategory(category);
         }
-        
+
         // Set createdBy if provided and this is a new product category
-        if (request.getCreatedById() != null && productCategory.getId() == null) {
-            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedById()));
+        if (request.getCreatedBy() != null && productCategory.getId() == null) {
+            StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             productCategory.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
-        if (request.getUpdatedById() != null) {
-            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedById())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedById()));
+        if (request.getUpdatedBy() != null) {
+            StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             productCategory.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the product category
         return productCategoryRepository.save(productCategory);
     }

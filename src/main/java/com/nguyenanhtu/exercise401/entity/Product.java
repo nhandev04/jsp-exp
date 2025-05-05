@@ -3,6 +3,15 @@ package com.nguyenanhtu.exercise401.entity;
 import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -74,11 +83,21 @@ public class Product {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
+    @Fetch(FetchMode.JOIN)
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
+    @JsonIgnore
     private StaffAccount updatedBy;
+
+    // Custom getter chỉ trả ID
+    @JsonProperty("categories")
+    public List<UUID> getCategoryIds() {
+        return categories.stream()
+                .map(ProductCategory::getId)
+                .collect(Collectors.toList());
+    }
 
     @PrePersist
     protected void onCreate() {

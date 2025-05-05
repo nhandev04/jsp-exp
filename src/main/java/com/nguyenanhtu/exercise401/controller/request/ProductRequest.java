@@ -20,6 +20,6 @@ public class ProductRequest {
     private Boolean published;
     private Boolean disableOutOfStock;
     private String note;
-    private UUID createdById;
-    private UUID updatedById;
+    private UUID createdBy;
+    private UUID updatedBy;
 }
