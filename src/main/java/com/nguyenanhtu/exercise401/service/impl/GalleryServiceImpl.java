@@ -46,7 +46,7 @@ public class GalleryServiceImpl implements GalleryService {
     public Gallery updateGallery(UUID id, GalleryRequest request) {
         Gallery gallery = galleryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Gallery not found with id: " + id));
-        
+
         return saveGallery(gallery, request);
     }
 
@@ -54,20 +54,26 @@ public class GalleryServiceImpl implements GalleryService {
     public void deleteGallery(UUID id) {
         galleryRepository.deleteById(id);
     }
-    
+
     private Gallery saveGallery(Gallery gallery, GalleryRequest request) {
         // Set basic properties
-        gallery.setImage(request.getImage());
-        gallery.setPlaceholder(request.getPlaceholder());
-        gallery.setIsThumbnail(request.getIsThumbnail());
-        
+        if (request.getImage() != null) {
+            gallery.setImage(request.getImage());
+        }
+        if (request.getPlaceholder() != null) {
+            gallery.setPlaceholder(request.getPlaceholder());
+        }
+        if (request.getIsThumbnail() != null) {
+            gallery.setIsThumbnail(request.getIsThumbnail());
+        }
+
         // Set product if provided
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
             gallery.setProduct(product);
         }
-        
+
         // Save and return the gallery
         return galleryRepository.save(gallery);
     }

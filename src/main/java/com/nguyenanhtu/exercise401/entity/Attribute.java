@@ -1,6 +1,10 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,4 +31,12 @@ public class Attribute extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
     private StaffAccount updatedBy;
+
+    public String getCreatedById() {
+        return createdBy != null ? createdBy.getId().toString() : null;
+    }
+
+    public String getUpdatedById() {
+        return updatedBy != null ? updatedBy.getId().toString() : null;
+    }
 }

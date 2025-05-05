@@ -2,6 +2,10 @@ package com.nguyenanhtu.exercise401.entity;
 
 import java.math.BigDecimal;
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +24,7 @@ public class ProductShippingInfo extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
+    @Fetch(FetchMode.JOIN)
     private Product product;
 
     @Column(nullable = false)

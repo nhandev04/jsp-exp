@@ -30,7 +30,7 @@ public class ProductShippingInfoServiceImpl implements ProductShippingInfoServic
     public Optional<ProductShippingInfo> getProductShippingInfoById(UUID id) {
         return productShippingInfoRepository.findById(id);
     }
-    
+
     @Override
     public Optional<ProductShippingInfo> getProductShippingInfoByProductId(UUID productId) {
         return productShippingInfoRepository.findByProductId(productId);
@@ -46,7 +46,7 @@ public class ProductShippingInfoServiceImpl implements ProductShippingInfoServic
     public ProductShippingInfo updateProductShippingInfo(UUID id, ProductShippingInfoRequest request) {
         ProductShippingInfo productShippingInfo = productShippingInfoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Product shipping info not found with id: " + id));
-        
+
         return saveProductShippingInfo(productShippingInfo, request);
     }
 
@@ -54,25 +54,42 @@ public class ProductShippingInfoServiceImpl implements ProductShippingInfoServic
     public void deleteProductShippingInfo(UUID id) {
         productShippingInfoRepository.deleteById(id);
     }
-    
-    private ProductShippingInfo saveProductShippingInfo(ProductShippingInfo productShippingInfo, ProductShippingInfoRequest request) {
+
+    private ProductShippingInfo saveProductShippingInfo(ProductShippingInfo productShippingInfo,
+            ProductShippingInfoRequest request) {
         // Set basic properties
-        productShippingInfo.setWeight(request.getWeight());
-        productShippingInfo.setWeightUnit(ProductShippingInfo.WeightUnit.valueOf(request.getWeightUnit()));
-        productShippingInfo.setVolume(request.getVolume());
-        productShippingInfo.setVolumeUnit(ProductShippingInfo.VolumeUnit.valueOf(request.getVolumeUnit()));
-        productShippingInfo.setDimensionWidth(request.getDimensionWidth());
-        productShippingInfo.setDimensionHeight(request.getDimensionHeight());
-        productShippingInfo.setDimensionDepth(request.getDimensionDepth());
-        productShippingInfo.setDimensionUnit(ProductShippingInfo.DimensionUnit.valueOf(request.getDimensionUnit()));
-        
+        if (request.getWeight() != null) {
+            productShippingInfo.setWeight(request.getWeight());
+        }
+        if (request.getWeightUnit() != null) {
+            productShippingInfo.setWeightUnit(ProductShippingInfo.WeightUnit.valueOf(request.getWeightUnit()));
+        }
+        if (request.getVolume() != null) {
+            productShippingInfo.setVolume(request.getVolume());
+        }
+        if (request.getVolumeUnit() != null) {
+            productShippingInfo.setVolumeUnit(ProductShippingInfo.VolumeUnit.valueOf(request.getVolumeUnit()));
+        }
+        if (request.getDimensionWidth() != null) {
+            productShippingInfo.setDimensionWidth(request.getDimensionWidth());
+        }
+        if (request.getDimensionHeight() != null) {
+            productShippingInfo.setDimensionHeight(request.getDimensionHeight());
+        }
+        if (request.getDimensionDepth() != null) {
+            productShippingInfo.setDimensionDepth(request.getDimensionDepth());
+        }
+        if (request.getDimensionUnit() != null) {
+            productShippingInfo.setDimensionUnit(ProductShippingInfo.DimensionUnit.valueOf(request.getDimensionUnit()));
+        }
+
         // Set product if provided
-        if (request.getProductId() != null) {
-            Product product = productRepository.findById(request.getProductId())
-                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
+        if (request.getProduct() != null) {
+            Product product = productRepository.findById(request.getProduct())
+                    .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProduct()));
             productShippingInfo.setProduct(product);
         }
-        
+
         // Save and return the product shipping info
         return productShippingInfoRepository.save(productShippingInfo);
     }

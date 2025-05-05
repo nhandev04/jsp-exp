@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 public class ProductShippingInfoRequest {
     private UUID id;
-    private UUID productId;
+    private UUID product;
     private BigDecimal weight;
     private String weightUnit;
     private BigDecimal volume;
