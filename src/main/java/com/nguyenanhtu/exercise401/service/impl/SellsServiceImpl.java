@@ -31,7 +31,7 @@ public class SellsServiceImpl implements SellsService {
     public Optional<Sells> getSellById(UUID id) {
         return sellsRepository.findById(id);
     }
-    
+
     @Override
     public List<Sells> getSellsByProductId(UUID productId) {
         Optional<Sells> sellsOptional = sellsRepository.findByProductId(productId);
@@ -48,7 +48,7 @@ public class SellsServiceImpl implements SellsService {
     public Sells updateSell(UUID id, SellsRequest request) {
         Sells sell = sellsRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Sell not found with id: " + id));
-        
+
         return saveSell(sell, request);
     }
 
@@ -56,19 +56,23 @@ public class SellsServiceImpl implements SellsService {
     public void deleteSell(UUID id) {
         sellsRepository.deleteById(id);
     }
-    
+
     private Sells saveSell(Sells sell, SellsRequest request) {
         // Set basic properties
-        sell.setQuantity(request.getQuantity());
-        sell.setPrice(request.getPrice());
-        
+        if (request.getQuantity() != null) {
+            sell.setQuantity(request.getQuantity());
+        }
+        if (request.getPrice() != null) {
+            sell.setPrice(request.getPrice());
+        }
+
         // Set product if provided
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
             sell.setProduct(product);
         }
-        
+
         // Save and return the sell
         return sellsRepository.save(sell);
     }

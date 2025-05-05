@@ -60,8 +60,12 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     private OrderItem saveOrderItem(OrderItem orderItem, OrderItemRequest request) {
         // Set basic properties
-        orderItem.setPrice(request.getPrice());
-        orderItem.setQuantity(request.getQuantity());
+        if (request.getPrice() != null) {
+            orderItem.setPrice(request.getPrice());
+        }
+        if (request.getQuantity() != null) {
+            orderItem.setQuantity(request.getQuantity());
+        }
 
         // Set order if provided
         if (request.getOrderId() != null) {

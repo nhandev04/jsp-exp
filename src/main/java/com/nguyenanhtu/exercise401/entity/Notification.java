@@ -3,6 +3,9 @@ package com.nguyenanhtu.exercise401.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,6 +24,7 @@ public class Notification extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", referencedColumnName = "id")
+    @JsonIgnore
     private StaffAccount account;
 
     @Column(name = "title", length = 100)

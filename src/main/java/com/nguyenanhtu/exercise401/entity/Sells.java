@@ -27,4 +27,9 @@ public class Sells {
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    public String getProduct() {
+        return product.getId() != null ? product.getId().toString() : null;
+    }
+
 }

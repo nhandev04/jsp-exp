@@ -30,7 +30,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Optional<Notification> getNotificationById(UUID id) {
         return notificationRepository.findById(id);
     }
-    
+
     @Override
     public List<Notification> getNotificationsByAccountId(UUID accountId) {
         return notificationRepository.findByAccountId(accountId);
@@ -46,7 +46,7 @@ public class NotificationServiceImpl implements NotificationService {
     public Notification updateNotification(UUID id, NotificationRequest request) {
         Notification notification = notificationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Notification not found with id: " + id));
-        
+
         return saveNotification(notification, request);
     }
 
@@ -54,22 +54,33 @@ public class NotificationServiceImpl implements NotificationService {
     public void deleteNotification(UUID id) {
         notificationRepository.deleteById(id);
     }
-    
+
     private Notification saveNotification(Notification notification, NotificationRequest request) {
         // Set basic properties
-        notification.setTitle(request.getTitle());
-        notification.setContent(request.getContent());
-        notification.setSeen(request.getSeen());
-        notification.setReceiveTime(request.getReceiveTime());
-        notification.setNotificationExpiryDate(request.getNotificationExpiryDate());
-        
+        if (request.getTitle() != null) {
+            notification.setTitle(request.getTitle());
+        }
+        if (request.getContent() != null) {
+            notification.setContent(request.getContent());
+        }
+        if (request.getSeen() != null) {
+            notification.setSeen(request.getSeen());
+        }
+        if (request.getReceiveTime() != null) {
+            notification.setReceiveTime(request.getReceiveTime());
+        }
+        if (request.getNotificationExpiryDate() != null) {
+            notification.setNotificationExpiryDate(request.getNotificationExpiryDate());
+        }
+
         // Set account if provided
         if (request.getAccountId() != null) {
             StaffAccount account = staffAccountRepository.findById(request.getAccountId())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getAccountId()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getAccountId()));
             notification.setAccount(account);
         }
-        
+
         // Save and return the notification
         return notificationRepository.save(notification);
     }

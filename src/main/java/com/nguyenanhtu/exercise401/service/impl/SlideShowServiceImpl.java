@@ -41,7 +41,7 @@ public class SlideShowServiceImpl implements SlideShowService {
     public SlideShow updateSlideShow(UUID id, SlideShowRequest request) {
         SlideShow slideShow = slideShowRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("SlideShow not found with id: " + id));
-        
+
         return saveSlideShow(slideShow, request);
     }
 
@@ -49,34 +49,56 @@ public class SlideShowServiceImpl implements SlideShowService {
     public void deleteSlideShow(UUID id) {
         slideShowRepository.deleteById(id);
     }
-    
+
     private SlideShow saveSlideShow(SlideShow slideShow, SlideShowRequest request) {
         // Set basic properties
-        slideShow.setTitle(request.getTitle());
-        slideShow.setDestinationUrl(request.getDestinationUrl());
-        slideShow.setImage(request.getImage());
-        slideShow.setPlaceholder(request.getPlaceholder());
-        slideShow.setDescription(request.getDescription());
-        slideShow.setBtnLabel(request.getBtnLabel());
-        slideShow.setDisplayOrder(request.getDisplayOrder());
-        slideShow.setPublished(request.getPublished());
-        slideShow.setClicks(request.getClicks());
-        slideShow.setStyles(request.getStyles());
-        
+        if (request.getTitle() != null) {
+            slideShow.setTitle(request.getTitle());
+        }
+        if (request.getDestinationUrl() != null) {
+            slideShow.setDestinationUrl(request.getDestinationUrl());
+        }
+        if (request.getImage() != null) {
+            slideShow.setImage(request.getImage());
+        }
+        if (request.getPlaceholder() != null) {
+            slideShow.setPlaceholder(request.getPlaceholder());
+        }
+        if (request.getDescription() != null) {
+            slideShow.setDescription(request.getDescription());
+        }
+        if (request.getBtnLabel() != null) {
+            slideShow.setBtnLabel(request.getBtnLabel());
+        }
+        if (request.getDisplayOrder() != null) {
+            slideShow.setDisplayOrder(request.getDisplayOrder());
+        }
+        if (request.getPublished() != null) {
+            slideShow.setPublished(request.getPublished());
+        }
+        if (request.getClicks() != null) {
+            slideShow.setClicks(request.getClicks());
+        }
+        if (request.getStyles() != null) {
+            slideShow.setStyles(request.getStyles());
+        }
+
         // Add a null check for getCreatedBy() to avoid undefined method error
         if (request.getCreatedBy() != null && slideShow.getId() == null) {
             StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             slideShow.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
         if (request.getUpdatedBy() != null) {
             StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             slideShow.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Save and return the slideshow
         return slideShowRepository.save(slideShow);
     }

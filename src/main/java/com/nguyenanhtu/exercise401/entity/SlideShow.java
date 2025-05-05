@@ -1,6 +1,9 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -49,9 +52,11 @@ public class SlideShow extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by", referencedColumnName = "id")
+    @JsonIgnore
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by", referencedColumnName = "id")
+    @JsonIgnore
     private StaffAccount updatedBy;
 }
