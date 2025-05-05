@@ -8,6 +8,7 @@ import org.hibernate.annotations.FetchMode;
 import jakarta.persistence.*;
 import lombok.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -65,12 +66,12 @@ public class StaffAccount {
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "updated_by", referencedColumnName = "id", nullable = true)
+    @JsonBackReference
     private StaffAccount updatedBy;
 
     @PrePersist

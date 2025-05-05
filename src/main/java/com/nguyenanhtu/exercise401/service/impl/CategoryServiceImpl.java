@@ -41,7 +41,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category updateCategory(UUID id, CategoryRequest request) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found with id: " + id));
-        
+
         return saveCategory(category, request);
     }
 
@@ -49,29 +49,32 @@ public class CategoryServiceImpl implements CategoryService {
     public void deleteCategory(UUID id) {
         categoryRepository.deleteById(id);
     }
-    
+
     private Category saveCategory(Category category, CategoryRequest request) {
         // Set parent category if provided
-        if (request.getParentId() != null) {
-            Category parentCategory = categoryRepository.findById(request.getParentId())
-                    .orElseThrow(() -> new RuntimeException("Parent category not found with id: " + request.getParentId()));
+        if (request.getParent() != null) {
+            Category parentCategory = categoryRepository.findById(request.getParent())
+                    .orElseThrow(
+                            () -> new RuntimeException("Parent category not found with id: " + request.getParent()));
             category.setParent(parentCategory);
         }
-        
+
         // Set createdBy if provided and this is a new category
         if (request.getCreatedBy() != null && category.getId() == null) {
             StaffAccount createdByAccount = staffAccountRepository.findById(request.getCreatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getCreatedBy()));
             category.setCreatedBy(createdByAccount);
         }
-        
+
         // Set updatedBy if provided
         if (request.getUpdatedBy() != null) {
             StaffAccount updatedByAccount = staffAccountRepository.findById(request.getUpdatedBy())
-                    .orElseThrow(() -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
+                    .orElseThrow(
+                            () -> new RuntimeException("Staff account not found with id: " + request.getUpdatedBy()));
             category.setUpdatedBy(updatedByAccount);
         }
-        
+
         // Set basic properties
         category.setCategoryName(request.getCategoryName());
         category.setCategoryDescription(request.getCategoryDescription());
@@ -79,7 +82,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setImage(request.getImage());
         category.setPlaceholder(request.getPlaceholder());
         category.setActive(request.getActive());
-        
+
         // Save and return the category
         return categoryRepository.save(category);
     }

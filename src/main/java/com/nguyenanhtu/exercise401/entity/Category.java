@@ -1,8 +1,14 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -22,7 +28,7 @@ public class Category extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id", referencedColumnName = "id", nullable = true)
-    @JsonIgnore
+    @Fetch(FetchMode.JOIN)
     private Category parent;
 
     @Column(name = "category_name", nullable = false, unique = true, length = 255)
@@ -45,12 +51,12 @@ public class Category extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "created_by")
-    @JsonIgnore
+    @Fetch(FetchMode.JOIN)
     private StaffAccount createdBy;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "updated_by")
-    @JsonIgnore
+    @JsonBackReference
     private StaffAccount updatedBy;
 
 }

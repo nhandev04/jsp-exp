@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class CategoryRequest {
     private UUID id;
-    private UUID parentId;
+    private UUID parent;
     private String categoryName;
     private String categoryDescription;
     private String icon;
