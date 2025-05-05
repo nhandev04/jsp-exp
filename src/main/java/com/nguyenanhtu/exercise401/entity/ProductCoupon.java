@@ -24,4 +24,12 @@ public class ProductCoupon {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id", referencedColumnName = "id", nullable = false)
     private Coupon coupon;
+
+    public String getProduct() {
+        return product.getId() != null ? product.getId().toString() : null;
+    }
+
+    public String getCoupon() {
+        return coupon.getId() != null ? coupon.getId().toString() : null;
+    }
 }
