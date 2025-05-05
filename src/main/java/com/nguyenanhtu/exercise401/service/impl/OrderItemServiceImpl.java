@@ -33,7 +33,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     public Optional<OrderItem> getOrderItemById(UUID id) {
         return orderItemRepository.findById(id);
     }
-    
+
     @Override
     public List<OrderItem> getOrderItemsByOrderId(String orderId) {
         return orderItemRepository.findByOrderId(orderId);
@@ -49,7 +49,7 @@ public class OrderItemServiceImpl implements OrderItemService {
     public OrderItem updateOrderItem(UUID id, OrderItemRequest request) {
         OrderItem orderItem = orderItemRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Order item not found with id: " + id));
-        
+
         return saveOrderItem(orderItem, request);
     }
 
@@ -57,26 +57,26 @@ public class OrderItemServiceImpl implements OrderItemService {
     public void deleteOrderItem(UUID id) {
         orderItemRepository.deleteById(id);
     }
-    
+
     private OrderItem saveOrderItem(OrderItem orderItem, OrderItemRequest request) {
         // Set basic properties
         orderItem.setPrice(request.getPrice());
         orderItem.setQuantity(request.getQuantity());
-        
+
         // Set order if provided
         if (request.getOrderId() != null) {
-            Order order = orderRepository.findById(request.getOrderId())
+            Order order = orderRepository.findById(UUID.fromString(request.getOrderId()))
                     .orElseThrow(() -> new RuntimeException("Order not found with id: " + request.getOrderId()));
             orderItem.setOrder(order);
         }
-        
+
         // Set product if provided
         if (request.getProductId() != null) {
             Product product = productRepository.findById(request.getProductId())
                     .orElseThrow(() -> new RuntimeException("Product not found with id: " + request.getProductId()));
             orderItem.setProduct(product);
         }
-        
+
         // Save and return the order item
         return orderItemRepository.save(orderItem);
     }

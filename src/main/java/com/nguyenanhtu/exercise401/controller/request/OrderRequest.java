@@ -6,7 +6,7 @@ import java.util.UUID;
 
 @Data
 public class OrderRequest {
-    private String id;
+    private UUID id;
     private UUID customerId;
     private UUID couponId;
     private UUID orderStatusId;

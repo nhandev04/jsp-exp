@@ -1,6 +1,8 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -13,8 +15,9 @@ import lombok.*;
 public class Order extends BaseEntity {
 
     @Id
-    @Column(name = "id", length = 50, nullable = false)
-    private String id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id", nullable = false, updatable = false)
+    private UUID id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "coupon_id", referencedColumnName = "id")
@@ -36,4 +39,17 @@ public class Order extends BaseEntity {
 
     @Column(name = "order_delivered_customer_date")
     private LocalDateTime orderDeliveredCustomerDate;
+
+    public String getOrderStatus() {
+        return orderStatus != null ? orderStatus.getId().toString() : null;
+    }
+
+    public String getCustomer() {
+        return customer != null ? customer.getId().toString() : null;
+    }
+
+    public String getCoupon() {
+        return coupon != null ? coupon.getId().toString() : null;
+    }
+
 }
