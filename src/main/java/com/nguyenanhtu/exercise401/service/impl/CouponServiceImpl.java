@@ -28,7 +28,7 @@ public class CouponServiceImpl implements CouponService {
     public Optional<Coupon> getCouponById(UUID id) {
         return couponRepository.findById(id);
     }
-    
+
     @Override
     public Optional<Coupon> getCouponByCode(String couponCode) {
         return couponRepository.findByCode(couponCode);
@@ -44,7 +44,7 @@ public class CouponServiceImpl implements CouponService {
     public Coupon updateCoupon(UUID id, CouponRequest request) {
         Coupon coupon = couponRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Coupon not found with id: " + id));
-        
+
         return saveCoupon(coupon, request);
     }
 
@@ -52,17 +52,33 @@ public class CouponServiceImpl implements CouponService {
     public void deleteCoupon(UUID id) {
         couponRepository.deleteById(id);
     }
-    
+
     private Coupon saveCoupon(Coupon coupon, CouponRequest request) {
         // Set basic properties
-        coupon.setCode(request.getCode());
-        coupon.setDiscountType(request.getType());
-        coupon.setDiscountValue(BigDecimal.valueOf(request.getValue()));
-        coupon.setOrderAmountLimit(request.getMinOrderAmount() != null ? BigDecimal.valueOf(request.getMinOrderAmount()) : null);
-        coupon.setMaxUsage(request.getMaxUses() != null ? BigDecimal.valueOf(request.getMaxUses()) : null);
-        coupon.setTimesUsed(request.getUsesCount() != null ? BigDecimal.valueOf(request.getUsesCount()) : BigDecimal.ZERO);
-        coupon.setCouponEndDate(request.getExpiryDate());
-        
+        if (request.getCode() != null) {
+            coupon.setCode(request.getCode());
+        }
+        if (request.getType() != null) {
+            coupon.setDiscountType(request.getType());
+        }
+        if (request.getValue() != null) {
+            coupon.setDiscountValue(BigDecimal.valueOf(request.getValue()));
+        }
+        if (request.getMinOrderAmount() != null) {
+            coupon.setOrderAmountLimit(BigDecimal.valueOf(request.getMinOrderAmount()));
+        }
+        if (request.getMaxUses() != null) {
+            coupon.setMaxUsage(BigDecimal.valueOf(request.getMaxUses()));
+        }
+        if (request.getUsesCount() != null) {
+            coupon.setTimesUsed(BigDecimal.valueOf(request.getUsesCount()));
+        } else {
+            coupon.setTimesUsed(BigDecimal.ZERO);
+        }
+        if (request.getExpiryDate() != null) {
+            coupon.setCouponEndDate(request.getExpiryDate());
+        }
+
         // Save and return the coupon
         return couponRepository.save(coupon);
     }

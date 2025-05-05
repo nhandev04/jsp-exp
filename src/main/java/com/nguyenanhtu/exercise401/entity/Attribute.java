@@ -1,10 +1,6 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
-
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import jakarta.persistence.*;
 import lombok.*;
 
