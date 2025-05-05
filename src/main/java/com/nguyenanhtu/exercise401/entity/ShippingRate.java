@@ -2,6 +2,9 @@ package com.nguyenanhtu.exercise401.entity;
 
 import java.math.BigDecimal;
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,8 +25,18 @@ public class ShippingRate {
     @JoinColumn(name = "shipping_zone_id", referencedColumnName = "id", nullable = false)
     private ShippingZone shippingZone;
 
-    private enum WeightUnit {
-        G, KG
+    public enum WeightUnit {
+        G, KG;
+
+        @JsonCreator
+        public static WeightUnit fromString(String value) {
+            for (WeightUnit unit : WeightUnit.values()) {
+                if (unit.name().equalsIgnoreCase(value)) {
+                    return unit;
+                }
+            }
+            throw new IllegalArgumentException("Invalid weight unit: " + value);
+        }
     }
 
     @Enumerated(EnumType.STRING)
@@ -41,4 +54,13 @@ public class ShippingRate {
 
     @Column(name = "price", nullable = false, precision = 19, scale = 2)
     private BigDecimal price = BigDecimal.ZERO;
+
+    public String getShippingZone() {
+        return shippingZone != null ? shippingZone.getId().toString() : null;
+    }
+
+    public void setWeightUnit(String weightUnit) {
+        this.weightUnit = WeightUnit.fromString(weightUnit);
+    }
+
 }
