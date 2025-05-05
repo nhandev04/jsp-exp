@@ -1,6 +1,9 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -19,11 +22,21 @@ public class Variants {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    @JsonIgnore
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "variant_option_id", referencedColumnName = "id", nullable = false)
-    private VariantOption variantOptionRef;
+    @JsonIgnore
+    private VariantOption variantOption;
+
+    public String getProductId() {
+        return product != null && product.getId() != null ? product.getId().toString() : null;
+    }
+
+    public String getVariantOptionId() {
+        return variantOption != null && variantOption.getId() != null ? variantOption.getId().toString() : null;
+    }
 
     private String sku;
     private String barcode;

@@ -14,6 +14,6 @@ public interface VariantsRepository extends JpaRepository<Variants, UUID> {
     @Query("SELECT v FROM Variants v WHERE v.product.id = :productId")
     List<Variants> findByProductId(@Param("productId") UUID productId);
 
-    @Query("SELECT v FROM Variants v WHERE v.variantOptionRef.id = :variantOptionId")
+    @Query("SELECT v FROM Variants v WHERE v.variantOption.id = :variantOptionId")
     List<Variants> findByVariantOptionId(@Param("variantOptionId") UUID variantOptionId);
 }

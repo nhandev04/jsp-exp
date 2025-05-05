@@ -26,12 +26,28 @@ public class VariantOption {
     private Gallery image;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
     private Product product;
-    
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "variant_id", referencedColumnName = "id")
     private Variants variant;
+
+    public void setImage(Gallery image) {
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image != null ? image.getId().toString() : null;
+    }
+
+    public String getProduct() {
+        return product != null ? product.getId().toString() : null;
+    }
+
+    public String getVariant() {
+        return variant != null ? variant.getId().toString() : null;
+    }
 
     @Column(name = "sale_price", nullable = false, precision = 19, scale = 2)
     private BigDecimal salePrice = BigDecimal.ZERO;
@@ -51,16 +67,4 @@ public class VariantOption {
     @Column(name = "active", nullable = false)
     private Boolean active = true;
 
-    public void setVariant(Variants variant) {
-        this.variant = variant;
-        this.product = variant.getProduct();
-    }
-
-    public void setOptionName(String optionName) {
-        this.title = optionName;
-    }
-
-    public void setOptionValue(String optionValue) {
-        this.sku = optionValue;
-    }
 }

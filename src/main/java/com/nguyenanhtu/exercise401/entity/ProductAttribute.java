@@ -1,6 +1,10 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,4 +28,12 @@ public class ProductAttribute {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "attribute_id", referencedColumnName = "id", nullable = false)
     private Attribute attribute;
+
+    public String getProduct() {
+        return product != null ? product.getId().toString() : null;
+    }
+
+    public String getAttribute() {
+        return attribute != null ? attribute.getId().toString() : null;
+    }
 }

@@ -8,11 +8,14 @@ public class VariantsRequest {
     private UUID id;
     private UUID productId;
     private UUID variantOptionId;
-    private String variantSku;
-    private String variantBarcode;
-    private String variantImage;
-    private Double variantPrice;
-    private Double variantComparePrice;
-    private Double variantCostPrice;
-    private Integer variantInventory;
+
+    private String sku;
+    private String barcode;
+    private String image;
+
+    private Double price;
+    private Double comparePrice;
+    private Double costPrice;
+
+    private Integer inventory;
 }
