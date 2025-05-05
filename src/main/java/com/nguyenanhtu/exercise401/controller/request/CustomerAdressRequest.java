@@ -11,5 +11,6 @@ public class CustomerAdressRequest {
     private String dialCode;
     private String country;
     private String postalCode;
-    private UUID customerId;
+    private String city;
+    private UUID customer;
 }

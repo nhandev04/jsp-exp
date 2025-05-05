@@ -41,4 +41,8 @@ public class CustomerAdress {
 
     @Column(name = "city", nullable = false, length = 255)
     private String city;
+
+    public String getCustomer() {
+        return customer.getId() != null ? customer.getId().toString() : null;
+    }
 }

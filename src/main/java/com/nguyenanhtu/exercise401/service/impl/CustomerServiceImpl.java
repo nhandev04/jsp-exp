@@ -37,20 +37,29 @@ public class CustomerServiceImpl implements CustomerService {
 
     private String hashPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode(password); 
+        return passwordEncoder.encode(password);
     }
 
     public Customer addCustomer(CustomerRequest request) {
         Customer customer = new Customer();
 
         String hashedPassword = hashPassword(request.getPassword());
-    
-        customer.setPasswordHash(hashedPassword);
-        customer.setFirstName(request.getFirstName());
-        customer.setLastName(request.getLastName());
-        customer.setEmail(request.getEmail());
-        customer.setActive(request.getActive());
-    
+
+        if (hashedPassword != null) {
+            customer.setPasswordHash(hashedPassword);
+        }
+        if (request.getFirstName() != null) {
+            customer.setFirstName(request.getFirstName());
+        }
+        if (request.getLastName() != null) {
+            customer.setLastName(request.getLastName());
+        }
+        if (request.getEmail() != null) {
+            customer.setEmail(request.getEmail());
+        }
+        if (request.getActive() != null) {
+            customer.setActive(request.getActive());
+        }
         return saveCustomer(customer, request);
     }
 
@@ -58,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer updateCustomer(UUID id, CustomerRequest request) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
-        
+
         return saveCustomer(customer, request);
     }
 
@@ -66,25 +75,32 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(UUID id) {
         customerRepository.deleteById(id);
     }
-    
+
     private Customer saveCustomer(Customer customer, CustomerRequest request) {
-        customer.setFirstName(request.getFirstName());
-        customer.setLastName(request.getLastName());
-        customer.setEmail(request.getEmail());
-        
+        if (request.getFirstName() != null) {
+            customer.setFirstName(request.getFirstName());
+        }
+        if (request.getLastName() != null) {
+            customer.setLastName(request.getLastName());
+        }
+        if (request.getEmail() != null) {
+            customer.setEmail(request.getEmail());
+        }
+        if (request.getActive() != null) {
+            customer.setActive(request.getActive());
+        }
+
         // Only hash the password if it's provided in the request
         if (request.getPassword() != null && !request.getPassword().isEmpty()) {
             String hashedPassword = hashPassword(request.getPassword());
             customer.setPasswordHash(hashedPassword);
         }
-        
-        customer.setActive(request.getActive());
-        
+
         // Set registration date for new customers
         if (customer.getId() == null && customer.getRegisteredAt() == null) {
             customer.setRegisteredAt(LocalDateTime.now());
         }
-        
+
         // Save and return the customer
         return customerRepository.save(customer);
     }

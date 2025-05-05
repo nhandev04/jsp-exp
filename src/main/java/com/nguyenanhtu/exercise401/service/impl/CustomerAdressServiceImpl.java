@@ -30,7 +30,7 @@ public class CustomerAdressServiceImpl implements CustomerAdressService {
     public Optional<CustomerAdress> getCustomerAddressById(UUID id) {
         return customerAdressRepository.findById(id);
     }
-    
+
     @Override
     public List<CustomerAdress> getCustomerAddressesByCustomerId(UUID customerId) {
         return customerAdressRepository.findByCustomerId(customerId);
@@ -46,7 +46,7 @@ public class CustomerAdressServiceImpl implements CustomerAdressService {
     public CustomerAdress updateCustomerAddress(UUID id, CustomerAdressRequest request) {
         CustomerAdress customerAdress = customerAdressRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer address not found with id: " + id));
-        
+
         return saveCustomerAddress(customerAdress, request);
     }
 
@@ -54,23 +54,38 @@ public class CustomerAdressServiceImpl implements CustomerAdressService {
     public void deleteCustomerAddress(UUID id) {
         customerAdressRepository.deleteById(id);
     }
-    
+
     private CustomerAdress saveCustomerAddress(CustomerAdress customerAdress, CustomerAdressRequest request) {
         // Set basic properties
-        customerAdress.setAddressLine1(request.getAddressLine1());
-        customerAdress.setAddressLine2(request.getAddressLine2());
-        customerAdress.setPhoneNumber(request.getPhoneNumber());
-        customerAdress.setDialCode(request.getDialCode());
-        customerAdress.setCountry(request.getCountry());
-        customerAdress.setPostalCode(request.getPostalCode());
-        
+        if (request.getAddressLine1() != null) {
+            customerAdress.setAddressLine1(request.getAddressLine1());
+        }
+        if (request.getAddressLine2() != null) {
+            customerAdress.setAddressLine2(request.getAddressLine2());
+        }
+        if (request.getPhoneNumber() != null) {
+            customerAdress.setPhoneNumber(request.getPhoneNumber());
+        }
+        if (request.getDialCode() != null) {
+            customerAdress.setDialCode(request.getDialCode());
+        }
+        if (request.getCountry() != null) {
+            customerAdress.setCountry(request.getCountry());
+        }
+        if (request.getPostalCode() != null) {
+            customerAdress.setPostalCode(request.getPostalCode());
+        }
+        if (request.getCity() != null) {
+            customerAdress.setCity(request.getCity());
+        }
+
         // Set customer if provided
-        if (request.getCustomerId() != null) {
-            Customer customer = customerRepository.findById(request.getCustomerId())
-                    .orElseThrow(() -> new RuntimeException("Customer not found with id: " + request.getCustomerId()));
+        if (request.getCustomer() != null) {
+            Customer customer = customerRepository.findById(request.getCustomer())
+                    .orElseThrow(() -> new RuntimeException("Customer not found with id: " + request.getCustomer()));
             customerAdress.setCustomer(customer);
         }
-        
+
         // Save and return the customer address
         return customerAdressRepository.save(customerAdress);
     }

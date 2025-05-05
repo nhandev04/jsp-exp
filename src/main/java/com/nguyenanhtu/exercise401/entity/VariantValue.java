@@ -1,9 +1,6 @@
 package com.nguyenanhtu.exercise401.entity;
 
 import java.util.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.*;
 import lombok.*;
 
