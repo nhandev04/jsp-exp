@@ -7,20 +7,21 @@ import com.nguyenanhtu.exercise401.repository.RoleRepository;
 import com.nguyenanhtu.exercise401.repository.StaffAccountRepository;
 import com.nguyenanhtu.exercise401.service.StaffAccountService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class StaffAccountServiceImpl implements StaffAccountService {
 
     private final StaffAccountRepository staffAccountRepository;
     private final RoleRepository roleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<StaffAccount> getAllStaffAccounts() {
@@ -38,7 +39,6 @@ public class StaffAccountServiceImpl implements StaffAccountService {
     }
 
     private String hashPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }
 
