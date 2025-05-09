@@ -72,6 +72,7 @@ public class Product {
     private String note;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
     private List<ProductCategory> categories;
 
     @Column(name = "created_at", nullable = false)
@@ -97,6 +98,7 @@ public class Product {
                 .map(ProductCategory::getId)
                 .collect(Collectors.toList());
     }
+
 
     @PrePersist
     protected void onCreate() {
