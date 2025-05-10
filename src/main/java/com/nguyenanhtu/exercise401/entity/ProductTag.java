@@ -44,6 +44,19 @@ public class ProductTag {
     public String getTagName() {
         return tag != null ? tag.getTagName() : null;
     }
+    
+    public String getProductId () {
+        return product != null ? product.getId().toString() : null;
+    }
+
+    public String getTagId () {
+        return tag != null ? tag.getId().toString() : null;
+    }
+
+    public String getProductName () {
+        return product != null ? product.getProductName() : null;
+    }
+
 
     @Data
     @NoArgsConstructor

@@ -104,6 +104,20 @@ public class Product {
                 .collect(Collectors.toList());
     }
 
+
+    
+    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
+    @JsonIgnore
+    private Gallery gallery;
+    
+        @JsonProperty("gallery")
+        public Gallery getGallery() {
+            return gallery;
+        }
+
+    
+
     @JsonProperty("tags")
     public List<String> getTags() {
         if (productTags == null) {

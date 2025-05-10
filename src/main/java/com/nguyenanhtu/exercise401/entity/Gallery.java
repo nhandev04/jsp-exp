@@ -5,6 +5,9 @@ import java.util.*;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,6 +28,7 @@ public class Gallery extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", referencedColumnName = "id")
     @Fetch(FetchMode.JOIN)
+    @JsonIgnore
     private Product product;
 
     @Column(name = "image", nullable = false)
@@ -35,5 +39,4 @@ public class Gallery extends BaseEntity {
 
     @Column(name = "is_thumbnail")
     private Boolean isThumbnail = false;
-
 }
