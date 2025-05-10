@@ -27,6 +27,7 @@ public class ProductTag {
     @Fetch(FetchMode.JOIN)
     @MapsId("productId")
     @JoinColumn(name = "product_id")
+    @JsonIgnore
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,7 +36,7 @@ public class ProductTag {
     @JoinColumn(name = "tag_id")
     private Tag tag;
 
-    @Column(name = "is_primary")
+    @Column(name = "is_primary")    
     @JsonIgnore
     private Boolean isPrimary = false;
 
@@ -53,12 +54,4 @@ public class ProductTag {
         private UUID tagId;
     }
 
-    // // Helper methods to get string representations of IDs
-    // public String getProduct() {
-    //     return product != null && product.getId() != null ? product.getId().toString() : null;
-    // }
-
-    // public String getTag() {
-    //     return tag != null && tag.getId() != null ? tag.getId().toString() : null;
-    // }
 }

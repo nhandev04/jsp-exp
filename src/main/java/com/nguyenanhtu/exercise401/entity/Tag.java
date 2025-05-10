@@ -1,6 +1,6 @@
 package com.nguyenanhtu.exercise401.entity;
 
-import java.util.*;
+import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -13,14 +13,13 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "tags")
-public class Tag extends BaseEntity {
-
+public class Tag {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(name = "id", nullable = false)
     private UUID id;
-
-    @Column(name = "tag_name", nullable = false, length = 255)
+    
+    @Column(name = "tag_name", nullable = false)
     private String tagName;
 
     @Column(name = "icon")

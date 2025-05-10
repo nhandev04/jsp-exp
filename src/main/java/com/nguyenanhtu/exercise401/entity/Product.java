@@ -75,6 +75,10 @@ public class Product {
     @Fetch(FetchMode.JOIN)
     private List<ProductCategory> categories;
 
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Fetch(FetchMode.JOIN)
+    private List<ProductTag> productTags = new ArrayList<>();
+
     @Column(name = "created_at", nullable = false)
     private OffsetDateTime createdAt;
 
@@ -99,6 +103,21 @@ public class Product {
                 .collect(Collectors.toList());
     }
 
+    @JsonProperty("tags")
+    public List<Map<String, Object>> getTags() {
+        if (productTags == null) {
+            return new ArrayList<>();
+        }
+        return productTags.stream()
+                .map(pt -> {
+                    Map<String, Object> tagMap = new HashMap<>();
+                    tagMap.put("id", pt.getTag().getId());
+                    tagMap.put("name", pt.getTag().getTagName());
+                    tagMap.put("isPrimary", pt.getIsPrimary());
+                    return tagMap;
+                })
+                .collect(Collectors.toList());
+    }
 
     @PrePersist
     protected void onCreate() {
