@@ -2,6 +2,10 @@ package com.nguyenanhtu.exercise401.entity;
 
 import java.io.Serializable;
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,11 +24,13 @@ public class ProductTag {
     private ProductTagId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @MapsId("productId")
     @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.JOIN)
     @MapsId("tagId")
     @JoinColumn(name = "tag_id")
     private Tag tag;
@@ -47,12 +53,12 @@ public class ProductTag {
         private UUID tagId;
     }
 
-    // Helper methods to get string representations of IDs
-    public String getProduct() {
-        return product != null && product.getId() != null ? product.getId().toString() : null;
-    }
+    // // Helper methods to get string representations of IDs
+    // public String getProduct() {
+    //     return product != null && product.getId() != null ? product.getId().toString() : null;
+    // }
 
-    public String getTag() {
-        return tag != null && tag.getId() != null ? tag.getId().toString() : null;
-    }
+    // public String getTag() {
+    //     return tag != null && tag.getId() != null ? tag.getId().toString() : null;
+    // }
 }
