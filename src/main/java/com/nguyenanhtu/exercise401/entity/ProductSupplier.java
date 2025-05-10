@@ -2,6 +2,10 @@ package com.nguyenanhtu.exercise401.entity;
 
 import java.io.Serializable;
 import java.util.*;
+
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,11 +25,13 @@ public class ProductSupplier extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("productId")
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "product_id")
     private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("supplierId")
+    @Fetch(FetchMode.JOIN)
     @JoinColumn(name = "supplier_id")
     private Supplier supplier;
 
