@@ -2,7 +2,6 @@ package com.nguyenanhtu.exercise401.controller;
 
 import com.nguyenanhtu.exercise401.controller.request.ProductRequest;
 import com.nguyenanhtu.exercise401.entity.Product;
-import com.nguyenanhtu.exercise401.repository.ProductRepository;
 import com.nguyenanhtu.exercise401.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,9 +17,6 @@ public class ProductController {
 
     @Autowired
     private ProductService productService;
-    
-    @Autowired
-    private ProductRepository productRepository;
 
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
@@ -29,18 +25,19 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getProductById(@PathVariable UUID id) {
-        return productRepository.findByIdWithTags(id)
+    public ResponseEntity<Product> getProductById(@PathVariable UUID id) {
+        return productService.getProductById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/slug/{slug}")
-    public ResponseEntity<?> getProductBySlug(@PathVariable String slug) {
-        return productRepository.findBySlugWithTags(slug)
+    public ResponseEntity<Product> getProductBySlug(@PathVariable String slug) {
+        return productService.getProductBySlug(slug)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
+
 
     @PostMapping
     public ResponseEntity<Product> addProduct(@RequestBody ProductRequest productRequest) {

@@ -40,6 +40,11 @@ public class ProductTag {
     @JsonIgnore
     private Boolean isPrimary = false;
 
+
+    public String getTagName() {
+        return tag != null ? tag.getTagName() : null;
+    }
+
     @Data
     @NoArgsConstructor
     @AllArgsConstructor

@@ -43,4 +43,8 @@ public class ProductCategory extends BaseEntity {
     @Fetch(FetchMode.JOIN)
     private StaffAccount updatedBy;
 
+    public String getCategoryName () {
+        return category != null ? category.getCategoryName() : null;
+    }
+
 }

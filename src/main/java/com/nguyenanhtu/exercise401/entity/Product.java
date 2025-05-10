@@ -77,6 +77,7 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     @Fetch(FetchMode.JOIN)
+    @JsonIgnore
     private List<ProductTag> productTags = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false)
@@ -97,27 +98,22 @@ public class Product {
 
     // Custom getter chỉ trả ID
     @JsonProperty("categories")
-    public List<UUID> getCategoryIds() {
+    public List<String> getCategoryIds() {
         return categories.stream()
-                .map(ProductCategory::getId)
+                .map(ProductCategory::getCategoryName)
                 .collect(Collectors.toList());
     }
 
     @JsonProperty("tags")
-    public List<Map<String, Object>> getTags() {
+    public List<String> getTags() {
         if (productTags == null) {
             return new ArrayList<>();
         }
         return productTags.stream()
-                .map(pt -> {
-                    Map<String, Object> tagMap = new HashMap<>();
-                    tagMap.put("id", pt.getTag().getId());
-                    tagMap.put("name", pt.getTag().getTagName());
-                    tagMap.put("isPrimary", pt.getIsPrimary());
-                    return tagMap;
-                })
-                .collect(Collectors.toList());
-    }
+        .map(ProductTag::getTagName)
+        .collect(Collectors.toList());
+}
+
 
     @PrePersist
     protected void onCreate() {
