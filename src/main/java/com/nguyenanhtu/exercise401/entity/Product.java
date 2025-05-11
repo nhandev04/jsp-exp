@@ -47,6 +47,9 @@ public class Product {
     @Column(nullable = false)
     private Integer quantity = 0;
 
+    @Column(name = "rate", nullable = true)
+    private Integer rate  = 5;
+
     @Column(name = "short_description", nullable = false, length = 165)
     private String shortDescription;
 
