@@ -16,9 +16,10 @@ This project contains comprehensive API documentation for the Spring Boot applic
 - Customer APIs
 - Gallery APIs
 - Notification APIs
-- Order APIs
+
 
 ### [API Documentation Part 2](./API_DOCUMENTATION_2.md)
+- Order APIs
 - Order Item APIs
 - Order Status APIs
 - Product APIs
